@@ -1,0 +1,10 @@
+C:\Users\Lissette\source\repos\Compi1Proyecto1\Compi1Proyecto1\bin\Debug\Compi1Proyecto1.exe.config
+C:\Users\Lissette\source\repos\Compi1Proyecto1\Compi1Proyecto1\bin\Debug\Compi1Proyecto1.exe
+C:\Users\Lissette\source\repos\Compi1Proyecto1\Compi1Proyecto1\bin\Debug\Compi1Proyecto1.pdb
+C:\Users\Lissette\source\repos\Compi1Proyecto1\Compi1Proyecto1\obj\Debug\Compi1Proyecto1.csprojAssemblyReference.cache
+C:\Users\Lissette\source\repos\Compi1Proyecto1\Compi1Proyecto1\obj\Debug\Compi1Proyecto1.Properties.Resources.resources
+C:\Users\Lissette\source\repos\Compi1Proyecto1\Compi1Proyecto1\obj\Debug\Compi1Proyecto1.csproj.GenerateResource.cache
+C:\Users\Lissette\source\repos\Compi1Proyecto1\Compi1Proyecto1\obj\Debug\Compi1Proyecto1.csproj.CoreCompileInputs.cache
+C:\Users\Lissette\source\repos\Compi1Proyecto1\Compi1Proyecto1\obj\Debug\Compi1Proyecto1.exe
+C:\Users\Lissette\source\repos\Compi1Proyecto1\Compi1Proyecto1\obj\Debug\Compi1Proyecto1.pdb
+C:\Users\Lissette\source\repos\Compi1Proyecto1\Compi1Proyecto1\obj\Debug\Compi1Proyecto1.Form1.resources
