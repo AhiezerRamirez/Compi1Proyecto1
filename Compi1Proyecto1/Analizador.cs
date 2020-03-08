@@ -10,14 +10,17 @@ namespace Compi1Proyecto1
     class Analizador
     {
         int i,j,estado;
-        string palabra, linea;
+        string palabra, linea, stringtoken;
         char auxpalabra;
         ArrayList tokens=new ArrayList();
         ArrayList errores = new ArrayList();
+        Core core = new Core();
         public Analizador() { }
 
         private void analizar(string[] cadena)
         {
+            tokens.Clear();
+            stringtoken = "";
             estado = 0;
             this.palabra = "";
             for( i=0; i < cadena.Length; i++)
@@ -30,26 +33,64 @@ namespace Compi1Proyecto1
                     {
                         case 0:
                             if (auxpalabra.Equals(':'))
+                            {
                                 tokens.Add(new Token(Char.ToString(auxpalabra), "signo", i, j, false));
+                                stringtoken += auxpalabra;
+                            }   
+                            else if (auxpalabra.Equals('{'))
+                            {
+                                tokens.Add(new Token("{", "signo", i, j, false));
+                                stringtoken += auxpalabra;
+                            }
+                            else if (auxpalabra.Equals('}'))
+                            {
+                                tokens.Add(new Token("}", "signo", i, j, false));
+                                stringtoken += auxpalabra;
+
+                            }
                             else if (auxpalabra.Equals(';'))
                             {
                                 tokens.Add(new Token(Char.ToString(auxpalabra), "signo", i, j, false));
                                 tokens.Add(new Token("\n", "saltoLinea", i, j, false));
+                                stringtoken += auxpalabra;
+                                stringtoken += "\n";
                             }
                             else if (auxpalabra == '~')
+                            {
                                 tokens.Add(new Token("~", "signo", i, j, false));
+                                stringtoken += auxpalabra;
+                            }
                             else if (auxpalabra == '.')
+                            {
                                 tokens.Add(new Token(".", "singno", i, j, true));
+                                stringtoken += auxpalabra;
+                            }
+                                
                             else if (auxpalabra == '*')
+                            {
                                 tokens.Add(new Token("*", "signo", i, j, true));
+                                stringtoken += auxpalabra;
+                            }
                             else if (auxpalabra == '|')
+                            {
                                 tokens.Add(new Token("|", "signo", i, j, true));
+                                stringtoken += auxpalabra;
+                            }
                             else if (auxpalabra == '+')
+                            {
                                 tokens.Add(new Token("+", "signo", i, j, true));
+                                stringtoken += auxpalabra;
+                            }
                             else if (auxpalabra == ',')
+                            {
                                 tokens.Add(new Token(",", "signo", i, j, false));
+                                stringtoken += auxpalabra;
+                            }
                             else if (auxpalabra == '?')
+                            {
                                 tokens.Add(new Token("?", "signo", i, j, true));
+                                stringtoken += auxpalabra;
+                            }
                             else if (Char.IsWhiteSpace(auxpalabra))
                                 ;
                             else if (auxpalabra.Equals('/'))
@@ -60,10 +101,11 @@ namespace Compi1Proyecto1
                                 estado = 4;
                             else if (auxpalabra == '"')
                                 estado = 7;
-                            else if (auxpalabra == '\\')
-                                estado = 12;
                             else if (auxpalabra.Equals('['))
+                            {
                                 estado = 13;
+                                palabra += auxpalabra;
+                            }
                             else if (Char.IsLetter(auxpalabra))
                             {
                                 palabra += auxpalabra;
@@ -104,13 +146,15 @@ namespace Compi1Proyecto1
                                 if (palabra.ToLower().Equals("conj"))
                                 {
                                     tokens.Add(new Token( "CONJ","reservada", i, j, false));
-                                    estado = 0;
+                                    stringtoken += palabra;
+                                    estado = 9;
                                     palabra = "";
                                     j--;
                                 }
                                 else
                                 {
                                     tokens.Add(new Token(palabra,"identificador", i, j, false));
+                                    stringtoken += palabra;
                                     estado = 0;
                                     palabra = "";
                                     j--;
@@ -121,7 +165,8 @@ namespace Compi1Proyecto1
                             if (auxpalabra == '>')
                             {
                                 tokens.Add(new Token( "->","signo", i, j, false));
-                                estado = 9;
+                                stringtoken += "->";
+                                estado = 0;
                             }
                             else
                             {
@@ -137,7 +182,7 @@ namespace Compi1Proyecto1
                             else
                             {
                                 errores.Add(new Error(Char.ToString(auxpalabra), i, j));
-                                estado = 0;
+                                estado = 5;
                             }
                             break;
                         case 5:
@@ -161,16 +206,19 @@ namespace Compi1Proyecto1
                             break;
                         case 8:
                             tokens.Add(new Token( '"'+palabra+'"',"cadena", i, j, false));
+                            stringtoken += '"' + palabra + '"';
                             palabra = "";
                             estado = 0;
                             j--;
                             break;
                         case 9:
                             tokens.Add(new Token(Char.ToString(auxpalabra), "Econjunto", i, j, false));
+                            stringtoken += auxpalabra;
                             if (auxpalabra.Equals(';'))
                             {
                                 estado = 0;
                                 tokens.Add(new Token("\n", "saltoLinea", i, j, false));
+                                stringtoken += "\n";
                             }
                                 
                             break;  
@@ -186,51 +234,34 @@ namespace Compi1Proyecto1
                             else
                             {
                                 tokens.Add(new Token( palabra,"numero", i, j, false));
+                                stringtoken += palabra;
                                 estado = 0;
                                 j--;
                                 palabra = "";
                             }
                             break;
                         case 12:
-                            if (auxpalabra.Equals('"'))
-                            {
-                                tokens.Add(new Token("\\\"", "especial", i, j, false));
-                                estado = 0;
-                            }else if (auxpalabra.Equals('\''))
-                            {
-                                tokens.Add(new Token("\\\'", "especial", i, j, false));
-                                estado = 0;
-                            }
-                            else if (auxpalabra.Equals('\n'))
-                            {
-                                tokens.Add(new Token("\\\n", "especial", i, j, false));
-                                estado = 0;
-                            }
-                            else if (auxpalabra.Equals('\t'))
-                            {
-                                tokens.Add(new Token("\\\t", "especial", i, j, false));
-                                estado = 0;
-                            }
-                            else
-                            {
-                                errores.Add(new Error(Char.ToString(auxpalabra), i, j));
-                                estado = 0;
-                            }
+                            
                             break;
                         case 13:
                             if (auxpalabra.Equals(':'))
                             {
                                 estado = 14;
+                                palabra += auxpalabra;
                             }
                             else
                             {
                                 errores.Add(new Error(Char.ToString(auxpalabra), i, j));
                                 estado = 0;
+                                palabra = "";
                             }
                             break;
                         case 14:
                             if (auxpalabra.Equals(':'))
+                            {
                                 estado = 15;
+                                palabra += auxpalabra;
+                            }
                             else
                                 palabra += auxpalabra;
                                 //tokens.Add(new Token())
@@ -238,9 +269,16 @@ namespace Compi1Proyecto1
                         case 15:
                             if (auxpalabra.Equals(']'))
                             {
+                                palabra += auxpalabra;
                                 tokens.Add(new Token(palabra, "especial", i, j, false));
+                                stringtoken += palabra;
                                 estado = 0;
                                 palabra = "";
+                            }
+                            else
+                            {
+                                palabra += auxpalabra;
+                                estado = 14;
                             }
                             break;
                     }
@@ -250,18 +288,21 @@ namespace Compi1Proyecto1
 
         public void AnalizarEntrada(string[] cadena)
         {
-            
+            analizar(cadena);
             if (errores.Count > 0)
             {
                 System.Windows.Forms.MessageBox.Show("Errores Lexicos encontrados, Revise archivo PDF");
+                foreach(Error err in errores)
+                {
+                    Console.WriteLine(err.error);
+                }
 
             }
             else
             {
-                foreach(Token tok in tokens)
-                {
-
-                }
+                core.separarConjuntos(tokens);
+                core.separarExpresiones(tokens);
+                //Console.Write(stringtoken);
             }
             
         }

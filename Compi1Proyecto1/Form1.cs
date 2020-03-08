@@ -30,8 +30,7 @@ namespace Compi1Proyecto1
         private void BtnCargar1_Click(object sender, EventArgs e)
         {
             string[] lineas = TextArea1.Text.Split('\n');
-            //analizador.analizar(lineas);
-            //analizador.tokensToString();
+            analizador.AnalizarEntrada(lineas);
         }
     }
 }
