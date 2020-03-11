@@ -9,7 +9,7 @@ namespace Compi1Proyecto1
 {
     class Automata
     {
-        Estado inicia;
+        Estado inicial;
         ArrayList aceptacion,estados;
         HashSet<string> alfabeto;       //puede que se necesite cambiar el tipo de dato al almacenar
         string tipo;
@@ -19,7 +19,75 @@ namespace Compi1Proyecto1
             this.estados = new ArrayList();
             this.aceptacion = new ArrayList();
             this.alfabeto = new HashSet<string>();
+        }
 
+        public Estado getEstadoInicial()
+        {
+            return inicial;
+        }
+
+        public void setEstadoInicial(Estado inicial)
+        {
+            this.inicial = inicial;
+        }
+        public ArrayList getEstadosAceptacion()
+        {
+            return aceptacion;
+        }
+
+        public void addEstadosAceptacion(Estado fin)
+        {
+            this.aceptacion.Add(fin);
+        }
+
+        public ArrayList getEstados()
+        {
+            return estados;
+        }
+
+        public Estado getEstados(int index)
+        {
+            return (Estado)estados[index];
+        }
+        public void addEstados(Estado estado)
+        {
+            this.estados.Add(estado);
+        }
+        public HashSet<string> getAlfabeto()
+        {
+            return alfabeto;
+        }
+        public void createAlfabeto(String regex)
+        {
+            foreach (char ch in regex.ToCharArray())
+            {
+
+                if (ch != '|' && ch != '.' && ch != '*')
+                    this.alfabeto.Add(Char.ToString(ch));
+            }
+        }
+        public void setAlfabeto(HashSet<string> alfabeto)
+        {
+            this.alfabeto = alfabeto;
+        }
+
+        public void setTipo(String tipo)
+        {
+            this.tipo = tipo;
+        }
+        public String getTipo()
+        {
+            return this.tipo;
+        }
+
+        public Estado getInicial()
+        {
+            return inicial;
+        }
+
+        public void setInicial(Estado inicial)
+        {
+            this.inicial = inicial;
         }
     }
 }

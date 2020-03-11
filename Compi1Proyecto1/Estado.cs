@@ -37,6 +37,12 @@ namespace Compi1Proyecto1
             this.transiciones.Add(tran);
         }
 
+        public ArrayList getTransiciones()
+        {
+
+            return transiciones;
+        }
+
         public String toString()
         {
             return this.id.ToString();

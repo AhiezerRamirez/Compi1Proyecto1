@@ -12,6 +12,7 @@ namespace Compi1Proyecto1
 {
     public partial class Form1 : Form
     {
+        public static String EPSILON = "ε";
         Analizador analizador = new Analizador();
         public Form1()
         {
