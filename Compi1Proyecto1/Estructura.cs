@@ -21,10 +21,13 @@ namespace Compi1Proyecto1
         //public abstract Object ejecutar();
         //public abstract Object numerar();
         string[] ERs;
+        Cerradura cerradura;
         Automata AFN;
+        Automata AFD;
         public Estructura(string[] ers)
         {
             this.ERs = ers;
+            this.cerradura = new Cerradura();
         }
 
         public void estructurar()
@@ -69,14 +72,6 @@ namespace Compi1Proyecto1
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-            }
-
-            foreach (Estado item in this.AFN.getEstados())
-            {
-                foreach (Transicion transicion in item.transiciones)
-                {
-                    Console.WriteLine(transicion.DOT_String());
-                }
             }
         }
 
@@ -224,6 +219,32 @@ namespace Compi1Proyecto1
             return afn_union;
         }
 
+        public void graficarAFN()
+        {
+            string texto = "digraph automata_finito {\n";
+            texto += "\trankdir=LR;" + "\n";
+            texto += "\tnode [shape=doublecircle, style = filled,color = mediumseagreen];";
+            foreach (Estado item in this.AFN.getEstadosAceptacion())
+            {
+                texto += " \"" + item.id+"\"";
+            }
+
+            texto += ";" + "\n";
+            texto += "\tnode [shape=circle];" + "\n";
+            texto += "\tnode [color=midnightblue,fontcolor=white];\n" + "	edge [color=red];" + "\n";
+            texto += "\tsecret_node [style=invis];\n" + "	secret_node -> \"" + this.AFN.getEstadoInicial().id + "\" [label=\"inicio\"];\n";
+            foreach (Estado item in this.AFN.getEstados())
+            {
+                foreach (Transicion transicion in item.transiciones)
+                {
+                    //Console.WriteLine(transicion.DOT_String());
+                    texto += "\t" + transicion.DOT_String()+"\n";
+                }
+            }
+            texto += "}";
+            System.IO.File.WriteAllText(@"C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\automata1.dot",texto);
+        }
+
         public Automata getAfn()
         {
             return this.AFN;
@@ -234,6 +255,24 @@ namespace Compi1Proyecto1
             this.AFN = afn;
         }
         
+        public void makeAFD()
+        {
+            Automata automata = new Automata();
+            Queue<HashSet<Estado>> cola = new Queue<HashSet<Estado>> ();
+            Estado inicial = new Estado(0);
+            automata.setInicial(inicial);
+            automata.addEstados(inicial);
+            HashSet<Estado> arrayInicial = cerradura.metodoCerradura(this.AFN.getEstadoInicial());
+
+            foreach (Estado item in this.AFN.getEstadosAceptacion())
+            {
+                if (arrayInicial.Contains(inicial))
+                {
+                    automata.addEstadosAceptacion(inicial);
+                }
+
+            }
+        }
     }
 
     /*class Or : Estructura
