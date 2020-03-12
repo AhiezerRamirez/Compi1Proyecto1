@@ -14,6 +14,7 @@ namespace Compi1Proyecto1
     {
         public static String EPSILON = "ε";
         Analizador analizador = new Analizador();
+        
         public Form1()
         {
             InitializeComponent();
@@ -30,8 +31,12 @@ namespace Compi1Proyecto1
 
         private void BtnCargar1_Click(object sender, EventArgs e)
         {
-            string[] lineas = TextArea1.Text.Split('\n');
-            analizador.AnalizarEntrada(lineas);
+            //string[] lineas = TextArea1.Text.Split('\n');
+            //analizador.AnalizarEntrada(lineas);
+            string[] exp = { "d", "c", "b", "b", "a", ".", "d", "c", ".", "|", "*", ".",".","." };
+            
+            Estructura estru = new Estructura(exp);
+            estru.estructurar();
         }
     }
 }

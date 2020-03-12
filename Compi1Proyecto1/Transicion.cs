@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Compi1Proyecto1
 {
-    class Transicion
+    public class Transicion
     {
         public Estado inicio, fin;
         public string simbolo;
@@ -55,7 +55,7 @@ namespace Compi1Proyecto1
         }
         public String DOT_String()
         {
-            return (this.inicio + " -> " + this.fin + " [label=\"" + this.simbolo + "\"];");
+            return (this.inicio.id + " -> " + this.fin.id + " [label=\"" + this.simbolo + "\"];");
         }
     }
 }

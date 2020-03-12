@@ -14,15 +14,15 @@ namespace Compi1Proyecto1
             OR,AND,KLEEN,TERM
         }
     }*/
-    abstract class Estructura
+    public class Estructura
     {
         //Tipo tipo;
         //int cont;
         //public abstract Object ejecutar();
         //public abstract Object numerar();
-        List<Token> ERs;
+        string[] ERs;
         Automata AFN;
-        public Estructura(List<Token> ers)
+        public Estructura(string[] ers)
         {
             this.ERs = ers;
         }
@@ -31,21 +31,52 @@ namespace Compi1Proyecto1
         {
             Stack<Automata> pila = new Stack<Automata>();
             try {
-                foreach (Token item in ERs)
+                foreach (string item in ERs)
                 {
-                    switch (item.lexema)
+                    switch (item)
                     {
                         case "*":
-                            Automata kleen;
+                            Automata kleen=cerraduraKleen(pila.Pop());
+                            pila.Push(kleen);
+                            this.AFN = kleen;
+                            break;
+                        case ".":
+                            Automata concat_param1 = (Automata)pila.Pop();
+                            Automata concat_param2 = (Automata)pila.Pop();
+                            Automata concat_result = concatenacion(concat_param1, concat_param2);
+
+                            pila.Push(concat_result);
+                            this.AFN = concat_result;
+                            break;
+                        case "|":
+                            Automata union_param1 = (Automata)pila.Pop();
+                            Automata union_param2 = (Automata)pila.Pop();
+                            Automata union_result = uninion(union_param1, union_param2);
+
+
+                            pila.Push(union_result);
+
+                            this.AFN = union_result;
                             break;
                         default:
+                            Automata simple = Term(item);
+                            pila.Push(simple);
+                            this.AFN = simple;
                             break;
                     }
                 }
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
+            }
 
+            foreach (Estado item in this.AFN.getEstados())
+            {
+                foreach (Transicion transicion in item.transiciones)
+                {
+                    Console.WriteLine(transicion.DOT_String());
+                }
             }
         }
 
@@ -82,9 +113,127 @@ namespace Compi1Proyecto1
                 estado.getTransiciones().Add(new Transicion(estado, nuevoFin, Form1.EPSILON));
             }
             afnkleen.setAlfabeto(afn.getAlfabeto());
-
+            afnkleen.setLenguajeR(afn.getLenguajeR());
             return afnkleen;
         }
+
+        public Automata Term(string simbolo)
+        {
+            Automata afn = new Automata();
+            Estado inicial = new Estado(0);
+            Estado aceptacion = new Estado(1);
+            Transicion tran = new Transicion(inicial, aceptacion, simbolo);
+            inicial.setTransiciones(tran);
+            afn.addEstados(inicial);
+            afn.addEstados(aceptacion);
+            afn.setInicial(inicial);
+            afn.addEstadosAceptacion(aceptacion);
+            afn.setLenguajeR(simbolo + " ");
+            return afn;
+        }
+
+        public Automata concatenacion(Automata afn1,Automata afn2)
+        {
+            Automata afn_concat = new Automata();
+            int i = 0;
+            for ( i = 0; i < afn2.getEstados().Count; i++)
+            {
+                Estado temp = (Estado)afn2.getEstados()[i];
+                temp.setId(i);
+                if (i == 0)
+                {
+                    afn_concat.setEstadoInicial(temp);
+                }
+                if (i == afn2.getEstados().Count - 1)
+                {
+                    for (int k = 0; k < afn2.getEstadosAceptacion().Count; k++)
+                    {
+                        temp.setTransiciones(new Transicion((Estado)afn2.getEstadosAceptacion()[k],afn1.getEstadoInicial(),Form1.EPSILON));
+                    }
+                }
+                afn_concat.addEstados(temp);
+            }
+
+            for (int j = 0; j < afn1.getEstados().Count; j++)
+            {
+                Estado tmp = (Estado)afn1.getEstados()[j];
+                tmp.setId(i);
+
+                //define el ultimo con estado de aceptacion
+                if (afn1.getEstados().Count - 1 == j)
+                    afn_concat.addEstadosAceptacion(tmp);
+                afn_concat.addEstados(tmp);
+                i++;
+            }
+            HashSet<string> alfabeto = new HashSet<string>(afn1.getAlfabeto());
+            //alfabeto.Union(afn1.getAlfabeto());
+            alfabeto.UnionWith(afn2.getAlfabeto());
+            afn_concat.setAlfabeto(alfabeto);
+            afn_concat.setLenguajeR(afn1.getLenguajeR() + " " + afn2.getLenguajeR());
+            return afn_concat;
+        }
+
+        public Automata uninion(Automata afn1, Automata afn2)
+        {
+            Automata afn_union = new Automata();
+            Estado nuevoinicio = new Estado(0);
+            nuevoinicio.setTransiciones(new Transicion(nuevoinicio,afn2.getEstadoInicial(),Form1.EPSILON));
+            afn_union.addEstados(nuevoinicio);
+            afn_union.setEstadoInicial(nuevoinicio);
+            int i = 0;
+            for (i = 0; i < afn1.getEstados().Count; i++)
+            {
+                Estado tmp = (Estado)afn1.getEstados()[i];
+                tmp.setId(i + 1);
+                afn_union.addEstados(tmp);
+            }
+            for (int j = 0; j < afn2.getEstados().Count; j++)
+            {
+                Estado tmp = (Estado)afn2.getEstados()[j];
+                tmp.setId(i + 1);
+                afn_union.addEstados(tmp);
+                i++;
+            }
+
+            Estado nuevoFin = new Estado(afn1.getEstados().Count+ afn2.getEstados().Count + 1);
+            afn_union.addEstados(nuevoFin);
+            afn_union.addEstadosAceptacion(nuevoFin);
+
+            Estado anteriorInicio = afn1.getEstadoInicial();
+            ArrayList anteriorFin = afn1.getEstadosAceptacion();
+            ArrayList anteriorFin2 = afn2.getEstadosAceptacion();
+
+            nuevoinicio.getTransiciones().Add(new Transicion(nuevoinicio, anteriorInicio, Form1.EPSILON));
+            Console.Write(anteriorFin[0]);
+            for (int k = 0; k < anteriorFin.Count; k++)
+            {
+                Estado aux =(Estado) anteriorFin[k];
+                aux.getTransiciones().Add(new Transicion((Estado)anteriorFin[k], nuevoFin, Form1.EPSILON));
+            }
+
+            for (int k = 0; k < anteriorFin.Count; k++)
+            {
+                Estado aux = (Estado)anteriorFin2[k];
+                aux.getTransiciones().Add(new Transicion((Estado)anteriorFin2[k], nuevoFin, Form1.EPSILON));
+            }
+
+            HashSet<string> alfabeto = new HashSet<string>(afn1.getAlfabeto());
+            alfabeto.UnionWith(afn2.getAlfabeto());
+            afn_union.setAlfabeto(alfabeto);
+            afn_union.setLenguajeR(afn1.getLenguajeR()+" "+afn2.getLenguajeR());
+            return afn_union;
+        }
+
+        public Automata getAfn()
+        {
+            return this.AFN;
+        }
+
+        public void setAfn(Automata afn)
+        {
+            this.AFN = afn;
+        }
+        
     }
 
     /*class Or : Estructura

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Compi1Proyecto1
 {
-    class Estado
+    public class Estado
     {
         public int id;
         public ArrayList transiciones = new ArrayList();

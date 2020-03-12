@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace Compi1Proyecto1
 {
-    class Automata
+    public class Automata
     {
-        Estado inicial;
+        public Estado inicial;
         ArrayList aceptacion,estados;
         HashSet<string> alfabeto;       //puede que se necesite cambiar el tipo de dato al almacenar
         string tipo;
+        string lenguajeR;
 
         public Automata()
         {
@@ -88,6 +89,16 @@ namespace Compi1Proyecto1
         public void setInicial(Estado inicial)
         {
             this.inicial = inicial;
+        }
+
+        public String getLenguajeR()
+        {
+            return lenguajeR;
+        }
+
+        public void setLenguajeR(String lenguajeR)
+        {
+            this.lenguajeR = lenguajeR;
         }
     }
 }
