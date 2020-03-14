@@ -15,10 +15,10 @@ namespace Compi1Proyecto1
         {
             Stack<Estado> pila = new Stack<Estado>();
             Estado actual = state;
-            //actual.getTransiciones();
+            actual.getTransiciones();
             HashSet<Estado> rusultado = new HashSet<Estado>();
             pila.Push(actual);
-            while (pila.Count == 0)
+            while (pila.Count != 0)
             {
                 actual = pila.Pop();
                 foreach (Transicion item in actual.getTransiciones())
@@ -34,10 +34,11 @@ namespace Compi1Proyecto1
             return rusultado;
         }
 
-        public Estado mover(Estado estado, string simbolo)
+        /*public Estado mover(Estado estado, string simbolo)
         {
             ArrayList alcanzados = new ArrayList();
-            foreach (Transicion transicion in estado.getTransiciones())
+           
+            foreach (Transicion transicion in (ArrayList)estado.getTransiciones())
             {
                 Estado estadosiguiente = transicion.getFin();
                 string lexema = transicion.getSimbolo();
@@ -47,7 +48,7 @@ namespace Compi1Proyecto1
                 }
             }
             return (Estado)alcanzados[0];
-        }
+        }*/
 
         public HashSet<Estado>mover(HashSet<Estado> estados, string simbolo)
         {
@@ -55,7 +56,8 @@ namespace Compi1Proyecto1
             IEnumerator<Estado> iterador = estados.GetEnumerator();
             while (iterador.MoveNext())
             {
-                foreach (Transicion item in iterador.Current.getTransiciones())
+                
+                foreach (Transicion item in (ArrayList)iterador.Current.getTransiciones())
                 {
                     Estado siguiente = item.getFin();
                     string simb = item.getSimbolo();

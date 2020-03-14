@@ -68,6 +68,8 @@ namespace Compi1Proyecto1
                             break;
                     }
                 }
+                this.AFN.createAlfabeto(ERs);
+                this.AFN.setTipo("AFN");
             }
             catch (Exception e)
             {
@@ -242,7 +244,7 @@ namespace Compi1Proyecto1
                 }
             }
             texto += "}";
-            System.IO.File.WriteAllText(@"C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\automata1.dot",texto);
+            //System.IO.File.WriteAllText(@"C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\automata1.dot",texto);
         }
 
         public Automata getAfn()
@@ -266,12 +268,96 @@ namespace Compi1Proyecto1
 
             foreach (Estado item in this.AFN.getEstadosAceptacion())
             {
-                if (arrayInicial.Contains(inicial))
+                foreach (Estado estado in arrayInicial)
                 {
-                    automata.addEstadosAceptacion(inicial);
+                    if (estado.id.Equals(inicial.id))
+                    {
+                        automata.addEstadosAceptacion(inicial);
+                    }
                 }
-
+                
             }
+            cola.Enqueue(arrayInicial);
+            ArrayList temp = new ArrayList();
+            int index=0;
+            
+            while (cola.Count!=0)
+            {
+                HashSet<Estado> aux = cola.Dequeue();
+                
+                foreach (string item in this.AFN.getAlfabeto())
+                {
+                    HashSet<Estado> moveresponse = cerradura.mover(aux, item);
+                    HashSet<Estado> result = new HashSet<Estado>();
+                    foreach (Estado est in moveresponse)
+                    {
+                        result.UnionWith(cerradura.metodoCerradura(est));
+                    }
+                    Estado prev =(Estado) automata.getEstados()[index];
+                    ArrayList auxarraestado=new ArrayList();
+                    foreach (Estado auxestado in result.ToArray())
+                    {
+                        auxarraestado.Add(auxestado.id);
+                    }
+                    //Console.WriteLine(result.ToArray().First().id);
+                    if (temp.Contains(auxarraestado.ToString()))
+                    {
+                        Console.WriteLine("if dentro del primer if");
+                        ArrayList prevarray = automata.getEstados();
+                        Estado oldstate = prev;
+                        Estado nextstate = (Estado)prevarray[temp.IndexOf(index)+1];
+                        oldstate.setTransiciones(new Transicion(oldstate, nextstate, item));
+                    }
+                    else
+                    {
+                        Console.WriteLine("if dentro del else");
+                        temp.Add(auxarraestado.ToString());
+                        cola.Enqueue(result);
+                        Estado nuevo = new Estado(temp.IndexOf(result) + 1);
+                        prev.setTransiciones(new Transicion(prev, nuevo, item));
+                        automata.addEstados(nuevo);
+                        foreach (Estado aceptacion in this.AFN.getEstadosAceptacion())
+                        {
+                            if (result.Contains(aceptacion))
+                            {
+                                automata.addEstadosAceptacion(nuevo);
+                            }
+                        }
+                    }
+                }
+                index++;
+            }
+            this.AFD = automata;
+            this.AFD.setAlfabeto(this.AFN.getAlfabeto());
+            this.AFD.setTipo("AFD");
+        }
+
+        public void graficarAFD()
+        {
+            string texto = "digraph AFD {\n";
+            texto += "\trankdir=LR;" + "\n";
+            texto += "\tnode [shape=doublecircle, style = filled,color = mediumseagreen];";
+            foreach (Estado item in this.AFD.getEstadosAceptacion())
+            {
+                texto += " \"" + item.id + "\"";
+            }
+
+            texto += ";" + "\n";
+            texto += "\tnode [shape=circle];" + "\n";
+            texto += "\tnode [color=midnightblue,fontcolor=white];\n" + "	edge [color=red];" + "\n";
+            texto += "\tsecret_node [style=invis];\n" + "	secret_node -> \"" + this.AFD.getEstadoInicial().id + "\" [label=\"inicio\"];\n";
+            foreach (Estado item in this.AFD.getEstados())
+            {
+                Console.WriteLine("hola transciones de graficar");
+                foreach (Transicion transicion in item.transiciones)
+                {
+                    //Console.WriteLine(transicion.DOT_String());
+                    texto += "\t" + transicion.DOT_String() + "\n";
+                }
+            }
+            texto += "}";
+            System.IO.File.WriteAllText(@"C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\AFD.dot", texto);
+
         }
     }
 

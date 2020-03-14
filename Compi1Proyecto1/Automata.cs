@@ -58,13 +58,13 @@ namespace Compi1Proyecto1
         {
             return alfabeto;
         }
-        public void createAlfabeto(String regex)
+        public void createAlfabeto(String[] regex)
         {
-            foreach (char ch in regex.ToCharArray())
+            foreach (string ch in regex)
             {
 
-                if (ch != '|' && ch != '.' && ch != '*')
-                    this.alfabeto.Add(Char.ToString(ch));
+                if (ch != "|" && ch != "." && ch != "*")
+                    this.alfabeto.Add(ch);
             }
         }
         public void setAlfabeto(HashSet<string> alfabeto)

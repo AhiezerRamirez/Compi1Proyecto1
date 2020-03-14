@@ -39,6 +39,8 @@ namespace Compi1Proyecto1
             Estructura estru = new Estructura(exp);
             estru.estructurar();
             estru.graficarAFN();
+            estru.makeAFD();
+            estru.graficarAFD();
         }
     }
 }

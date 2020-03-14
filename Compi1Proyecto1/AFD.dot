@@ -1,0 +1,15 @@
+digraph AFD {
+	rankdir=LR;
+	node [shape=doublecircle, style = filled,color = mediumseagreen]; "0";
+	node [shape=circle];
+	node [color=midnightblue,fontcolor=white];
+	edge [color=red];
+	secret_node [style=invis];
+	secret_node -> "0" [label="inicio"];
+	"0" -> "0" [label="_"];
+	"0" -> "0" [label="digito"];
+	"0" -> "0" [label="letra"];
+	"0" -> "0" [label="_"];
+	"0" -> "0" [label="digito"];
+	"0" -> "0" [label="letra"];
+}
