@@ -229,6 +229,7 @@ namespace Compi1Proyecto1
             foreach (Estado item in this.AFN.getEstadosAceptacion())
             {
                 texto += " \"" + item.id+"\"";
+                Console.WriteLine(item.id);
             }
 
             texto += ";" + "\n";
@@ -270,7 +271,7 @@ namespace Compi1Proyecto1
             {
                 foreach (Estado estado in arrayInicial)
                 {
-                    if (estado.id.Equals(inicial.id))
+                    if (estado.id.Equals(item.id))
                     {
                         automata.addEstadosAceptacion(inicial);
                     }
@@ -287,6 +288,7 @@ namespace Compi1Proyecto1
                 
                 foreach (string item in this.AFN.getAlfabeto())
                 {
+                    int numstate = 0;
                     HashSet<Estado> moveresponse = cerradura.mover(aux, item);
                     HashSet<Estado> result = new HashSet<Estado>();
                     foreach (Estado est in moveresponse)
@@ -294,34 +296,43 @@ namespace Compi1Proyecto1
                         result.UnionWith(cerradura.metodoCerradura(est));
                     }
                     Estado prev =(Estado) automata.getEstados()[index];
-                    ArrayList auxarraestado=new ArrayList();
+                    string auxstring = "";
                     foreach (Estado auxestado in result.ToArray())
                     {
-                        auxarraestado.Add(auxestado.id);
+                        //auxarraestado.Add(auxestado.id.ToString());
+                        auxstring += auxestado.id.ToString();
                     }
-                    //Console.WriteLine(result.ToArray().First().id);
-                    if (temp.Contains(auxarraestado.ToString()))
+                    //Console.WriteLine(auxstring);
+                    if (temp.Contains(auxstring))
                     {
-                        Console.WriteLine("if dentro del primer if");
+                        //Console.WriteLine("if dentro del primer if");
                         ArrayList prevarray = automata.getEstados();
                         Estado oldstate = prev;
-                        Estado nextstate = (Estado)prevarray[temp.IndexOf(index)+1];
+                        Estado nextstate = (Estado)prevarray[temp.IndexOf(auxstring)+1];
+                        //Console.WriteLine(temp.IndexOf(auxstring)+"de if");
                         oldstate.setTransiciones(new Transicion(oldstate, nextstate, item));
                     }
                     else
                     {
-                        Console.WriteLine("if dentro del else");
-                        temp.Add(auxarraestado.ToString());
+                        //Console.WriteLine("if con el eslse adentro");
+                        temp.Add(auxstring);
                         cola.Enqueue(result);
-                        Estado nuevo = new Estado(temp.IndexOf(result) + 1);
+                        Estado nuevo = new Estado(temp.IndexOf(auxstring) + 1);
+                        //Console.WriteLine(temp.IndexOf(auxstring) + "del else");
                         prev.setTransiciones(new Transicion(prev, nuevo, item));
                         automata.addEstados(nuevo);
                         foreach (Estado aceptacion in this.AFN.getEstadosAceptacion())
                         {
-                            if (result.Contains(aceptacion))
+                            
+                            foreach (Estado es in result)
                             {
-                                automata.addEstadosAceptacion(nuevo);
+                                Console.WriteLine(aceptacion.id + " del afd "+es.id);
+                                if (es.id.Equals(aceptacion.id))
+                                {
+                                    automata.addEstadosAceptacion(nuevo);
+                                }
                             }
+                            
                         }
                     }
                 }

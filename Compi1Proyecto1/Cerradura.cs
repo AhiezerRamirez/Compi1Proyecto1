@@ -18,15 +18,28 @@ namespace Compi1Proyecto1
             actual.getTransiciones();
             HashSet<Estado> rusultado = new HashSet<Estado>();
             pila.Push(actual);
+            bool agrega;
             while (pila.Count != 0)
             {
                 actual = pila.Pop();
                 foreach (Transicion item in actual.getTransiciones())
                 {
-                    if(item.getSimbolo().Equals(Form1.EPSILON)&& !rusultado.Contains(item.getFin()))
+                    agrega = true;
+                    if(item.getSimbolo().Equals(Form1.EPSILON))
                     {
-                        rusultado.Add(item.getFin());
-                        pila.Push(item.getFin());
+                        foreach (Estado est in rusultado)
+                        {
+                            if (est.id.Equals(item.getFin().id))
+                            {
+                                agrega = false;
+                            }
+                        }
+                        if (agrega)
+                        {
+                            rusultado.Add(item.getFin());
+                            pila.Push(item.getFin());
+                        }
+                        
                     }
                 }
             }
