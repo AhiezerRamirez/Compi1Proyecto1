@@ -27,6 +27,7 @@ namespace Compi1Proyecto1
                     agrega = true;
                     if(item.getSimbolo().Equals(Form1.EPSILON))
                     {
+                        
                         foreach (Estado est in rusultado)
                         {
                             if (est.id.Equals(item.getFin().id))
@@ -34,7 +35,7 @@ namespace Compi1Proyecto1
                                 agrega = false;
                             }
                         }
-                        if (agrega)
+                        if (agrega==true)
                         {
                             rusultado.Add(item.getFin());
                             pila.Push(item.getFin());
@@ -67,6 +68,7 @@ namespace Compi1Proyecto1
         {
             HashSet<Estado> alcanzados = new HashSet<Estado>();
             IEnumerator<Estado> iterador = estados.GetEnumerator();
+            
             while (iterador.MoveNext())
             {
                 
@@ -74,8 +76,10 @@ namespace Compi1Proyecto1
                 {
                     Estado siguiente = item.getFin();
                     string simb = item.getSimbolo();
+                    
                     if (simb.Equals(simbolo))
                     {
+                        //Console.WriteLine(item.getInicio().id+" -> "+simbolo+" -> "+item.getFin().id);
                         alcanzados.Add(siguiente);
                     }
                 }

@@ -33,8 +33,8 @@ namespace Compi1Proyecto1
         {
             //string[] lineas = TextArea1.Text.Split('\n');
             //analizador.AnalizarEntrada(lineas);
-            string[] exp = { "_", "digito", "|", "letra", "|", "*", "letra", "." };
-            //string[] exp = { "d", "c", "b", "b", "a", ".", "d", "c", ".", "|", "*", ".",".","." };
+            //string[] exp = { "_", "digito", "|", "letra", "|", "*", "letra", "." };
+            string[] exp = { "d", "c", "b", "b", "a", ".", "d", "c", ".", "|", "*", ".",".","." };
             
             Estructura estru = new Estructura(exp);
             estru.estructurar();

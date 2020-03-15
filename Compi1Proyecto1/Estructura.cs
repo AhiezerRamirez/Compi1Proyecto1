@@ -245,7 +245,7 @@ namespace Compi1Proyecto1
                 }
             }
             texto += "}";
-            //System.IO.File.WriteAllText(@"C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\automata1.dot",texto);
+            System.IO.File.WriteAllText(@"C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\automata1.dot",texto);
         }
 
         public Automata getAfn()
@@ -266,11 +266,13 @@ namespace Compi1Proyecto1
             automata.setInicial(inicial);
             automata.addEstados(inicial);
             HashSet<Estado> arrayInicial = cerradura.metodoCerradura(this.AFN.getEstadoInicial());
+            Console.WriteLine(this.AFN.getEstadoInicial().id);
 
             foreach (Estado item in this.AFN.getEstadosAceptacion())
             {
                 foreach (Estado estado in arrayInicial)
                 {
+                    //Console.WriteLine("La primer cerradura es: " + estado.id);
                     if (estado.id.Equals(item.id))
                     {
                         automata.addEstadosAceptacion(inicial);
@@ -278,6 +280,7 @@ namespace Compi1Proyecto1
                 }
                 
             }
+
             cola.Enqueue(arrayInicial);
             ArrayList temp = new ArrayList();
             int index=0;
@@ -288,21 +291,23 @@ namespace Compi1Proyecto1
                 
                 foreach (string item in this.AFN.getAlfabeto())
                 {
-                    int numstate = 0;
+                    
                     HashSet<Estado> moveresponse = cerradura.mover(aux, item);
                     HashSet<Estado> result = new HashSet<Estado>();
+                    //Console.WriteLine(item+"; "+ moveresponse.Count);
                     foreach (Estado est in moveresponse)
                     {
                         result.UnionWith(cerradura.metodoCerradura(est));
                     }
                     Estado prev =(Estado) automata.getEstados()[index];
                     string auxstring = "";
-                    foreach (Estado auxestado in result.ToArray())
+                    IEnumerable<Estado> query = result.OrderBy(results => results.id);
+                    foreach (Estado auxestado in query)
                     {
                         //auxarraestado.Add(auxestado.id.ToString());
                         auxstring += auxestado.id.ToString();
                     }
-                    //Console.WriteLine(auxstring);
+                    Console.WriteLine(auxstring);
                     if (temp.Contains(auxstring))
                     {
                         //Console.WriteLine("if dentro del primer if");
@@ -326,7 +331,7 @@ namespace Compi1Proyecto1
                             
                             foreach (Estado es in result)
                             {
-                                Console.WriteLine(aceptacion.id + " del afd "+es.id);
+                                //Console.WriteLine(aceptacion.id + " del afd "+es.id);
                                 if (es.id.Equals(aceptacion.id))
                                 {
                                     automata.addEstadosAceptacion(nuevo);

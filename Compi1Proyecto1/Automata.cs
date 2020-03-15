@@ -56,6 +56,7 @@ namespace Compi1Proyecto1
         }
         public HashSet<string> getAlfabeto()
         {
+            //HashSet<string> aux = this.alfabeto.Reverse<string>();
             return alfabeto;
         }
         public void createAlfabeto(String[] regex)
