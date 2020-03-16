@@ -41,6 +41,7 @@ namespace Compi1Proyecto1
             estru.graficarAFN();
             estru.makeAFD();
             estru.graficarAFD();
+            estru.graficarTabla();
         }
     }
 }

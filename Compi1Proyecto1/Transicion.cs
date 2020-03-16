@@ -57,5 +57,10 @@ namespace Compi1Proyecto1
         {
             return ("\""+this.inicio.id + "\" -> \"" + this.fin.id + "\" [label=\"" + this.simbolo + "\"];");
         }
+
+        public string DOT_Tabla()
+        {
+            return "";
+        }
     }
 }

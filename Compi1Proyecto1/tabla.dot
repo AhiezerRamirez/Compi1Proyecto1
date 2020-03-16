@@ -1,0 +1,21 @@
+digraph tabla{ 
+ 	rankdir=TB;
+	node [shape=rectangle, height=0.5, width=0.5];
+	graph[ nodesep = 0.5];
+	d[label="d"];
+	c[label="c"];
+	b[label="b"];
+	a[label="a"];
+	root[label="root"];
+	y0[label="0"];
+	y1[label="1"];
+	y2[label="2"];
+	y3[label="3"];
+	y4[label="4"];
+	y5[label="5"];
+	y6[label="6"];
+	y7[label="7"];
+	root -> d -> c -> b -> a -> null
+	root -> y0 -> y1 -> y2 -> y3 -> y4 -> y5 -> y6 -> y7 -> nulll
+	y0 -> xy1	y0 -> xy2	y0 -> xy3	y1 -> xy4	y2 -> xy5	y3 -> xy6	y4 -> xy1	y4 -> xy2	y4 -> xy3	y5 -> xy7	y6 -> xy1	y6 -> xy2	y6 -> xy3	{ rank=same;root;null;d;c;b;a}
+}

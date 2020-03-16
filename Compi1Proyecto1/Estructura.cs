@@ -24,6 +24,7 @@ namespace Compi1Proyecto1
         Cerradura cerradura;
         Automata AFN;
         Automata AFD;
+        string nombre;
         public Estructura(string[] ers)
         {
             this.ERs = ers;
@@ -46,7 +47,7 @@ namespace Compi1Proyecto1
                         case ".":
                             Automata concat_param1 = (Automata)pila.Pop();
                             Automata concat_param2 = (Automata)pila.Pop();
-                            Automata concat_result = concatenacion(concat_param1, concat_param2);
+                            Automata concat_result = concatenacion(concat_param2, concat_param1);
 
                             pila.Push(concat_result);
                             this.AFN = concat_result;
@@ -54,7 +55,7 @@ namespace Compi1Proyecto1
                         case "|":
                             Automata union_param1 = (Automata)pila.Pop();
                             Automata union_param2 = (Automata)pila.Pop();
-                            Automata union_result = uninion(union_param1, union_param2);
+                            Automata union_result = uninion(union_param2, union_param1);
 
 
                             pila.Push(union_result);
@@ -266,7 +267,6 @@ namespace Compi1Proyecto1
             automata.setInicial(inicial);
             automata.addEstados(inicial);
             HashSet<Estado> arrayInicial = cerradura.metodoCerradura(this.AFN.getEstadoInicial());
-            Console.WriteLine(this.AFN.getEstadoInicial().id);
 
             foreach (Estado item in this.AFN.getEstadosAceptacion())
             {
@@ -294,9 +294,10 @@ namespace Compi1Proyecto1
                     
                     HashSet<Estado> moveresponse = cerradura.mover(aux, item);
                     HashSet<Estado> result = new HashSet<Estado>();
-                    //Console.WriteLine(item+"; "+ moveresponse.Count);
+                    Console.WriteLine("Simbolo: {0} obtuvimos: {1}",item, moveresponse.Count);
                     foreach (Estado est in moveresponse)
                     {
+                        Console.WriteLine("Y son: {0}", est.id);
                         result.UnionWith(cerradura.metodoCerradura(est));
                     }
                     Estado prev =(Estado) automata.getEstados()[index];
@@ -307,37 +308,40 @@ namespace Compi1Proyecto1
                         //auxarraestado.Add(auxestado.id.ToString());
                         auxstring += auxestado.id.ToString();
                     }
-                    Console.WriteLine(auxstring);
-                    if (temp.Contains(auxstring))
+                    Console.WriteLine("Con el estado: {0}",auxstring);
+                    if (result.Count != 0)
                     {
-                        //Console.WriteLine("if dentro del primer if");
-                        ArrayList prevarray = automata.getEstados();
-                        Estado oldstate = prev;
-                        Estado nextstate = (Estado)prevarray[temp.IndexOf(auxstring)+1];
-                        //Console.WriteLine(temp.IndexOf(auxstring)+"de if");
-                        oldstate.setTransiciones(new Transicion(oldstate, nextstate, item));
-                    }
-                    else
-                    {
-                        //Console.WriteLine("if con el eslse adentro");
-                        temp.Add(auxstring);
-                        cola.Enqueue(result);
-                        Estado nuevo = new Estado(temp.IndexOf(auxstring) + 1);
-                        //Console.WriteLine(temp.IndexOf(auxstring) + "del else");
-                        prev.setTransiciones(new Transicion(prev, nuevo, item));
-                        automata.addEstados(nuevo);
-                        foreach (Estado aceptacion in this.AFN.getEstadosAceptacion())
+                        if (temp.Contains(auxstring))
                         {
-                            
-                            foreach (Estado es in result)
+                            //Console.WriteLine("if dentro del primer if");
+                            ArrayList prevarray = automata.getEstados();
+                            Estado oldstate = prev;
+                            Estado nextstate = (Estado)prevarray[temp.IndexOf(auxstring) + 1];
+                            //Console.WriteLine(temp.IndexOf(auxstring)+"de if");
+                            oldstate.setTransiciones(new Transicion(oldstate, nextstate, item));
+                        }
+                        else
+                        {
+                            //Console.WriteLine("if con el eslse adentro");
+                            temp.Add(auxstring);
+                            cola.Enqueue(result);
+                            Estado nuevo = new Estado(temp.IndexOf(auxstring) + 1);
+                            //Console.WriteLine(temp.IndexOf(auxstring) + "del else");
+                            prev.setTransiciones(new Transicion(prev, nuevo, item));
+                            automata.addEstados(nuevo);
+                            foreach (Estado aceptacion in this.AFN.getEstadosAceptacion())
                             {
-                                //Console.WriteLine(aceptacion.id + " del afd "+es.id);
-                                if (es.id.Equals(aceptacion.id))
+
+                                foreach (Estado es in result)
                                 {
-                                    automata.addEstadosAceptacion(nuevo);
+                                    //Console.WriteLine(aceptacion.id + " del afd "+es.id);
+                                    if (es.id.Equals(aceptacion.id))
+                                    {
+                                        automata.addEstadosAceptacion(nuevo);
+                                    }
                                 }
+
                             }
-                            
                         }
                     }
                 }
@@ -374,6 +378,55 @@ namespace Compi1Proyecto1
             texto += "}";
             System.IO.File.WriteAllText(@"C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\AFD.dot", texto);
 
+        }
+
+        public void graficarTabla()
+        {
+            string texto = "digraph tabla{ \n \trankdir=TB;\n\tnode [shape=rectangle, height=0.5, width=0.5];\n\tgraph[ nodesep = 0.5];\n";
+            
+            foreach (string simbolo in this.AFD.getAlfabeto())
+            {
+                texto +="\t"+ simbolo + "[label=\"" + simbolo+ "\"];\n";
+            }
+            texto += "\troot[label=\"root\"];\n";
+            foreach (Estado item in this.AFD.getEstados())
+            {
+                
+                 texto += "\ty" + item.id + "[label=\"" + item.id + "\"];\n";
+                
+            }
+            
+            texto += "\troot -> ";
+            foreach (string simbolo in this.AFD.getAlfabeto())
+            {
+                texto += simbolo + " -> ";
+            }
+            texto += "null\n";
+
+            
+            texto += "\troot -> ";
+            foreach (Estado item in this.AFD.getEstados())
+            {  
+                texto += "y" + item.id + " -> ";
+            }
+            texto += "nulll\n";
+
+            foreach (Estado item in this.AFD.getEstados())
+            {
+                foreach (Transicion transicion in item.getTransiciones())
+                {
+                    texto += "\ty" + transicion.inicio.id + " -> xy" +transicion.fin.id;
+                }
+            }
+
+            texto += "\t{ rank=same;root;null";
+            foreach (string item in this.AFD.getAlfabeto())
+            {
+                texto += ";" + item;
+            }
+            texto += "}\n";
+            texto += "}";
+            System.IO.File.WriteAllText(@"C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\tabla.dot", texto);
         }
     }
 
