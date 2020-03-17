@@ -17,5 +17,66 @@ digraph tabla{
 	y7[label="7"];
 	root -> d -> c -> b -> a -> null
 	root -> y0 -> y1 -> y2 -> y3 -> y4 -> y5 -> y6 -> y7 -> nulll
-	y0 -> xy1	y0 -> xy2	y0 -> xy3	y1 -> xy4	y2 -> xy5	y3 -> xy6	y4 -> xy1	y4 -> xy2	y4 -> xy3	y5 -> xy7	y6 -> xy1	y6 -> xy2	y6 -> xy3	{ rank=same;root;null;d;c;b;a}
+	d -> xy04 -> xy07 -> nullx0
+	c -> xy01 -> xy05 -> xy01 -> xy01 -> nullx0
+	b -> xy02 -> xy06 -> xy02 -> xy02 -> nullx0
+	a -> xy03 -> xy03 -> xy03 -> nullx0
+	d -> xy14 -> xy17 -> nullx1
+	c -> xy11 -> xy15 -> xy11 -> xy11 -> nullx1
+	b -> xy12 -> xy16 -> xy12 -> xy12 -> nullx1
+	a -> xy13 -> xy13 -> xy13 -> nullx1
+	d -> xy24 -> xy27 -> nullx2
+	c -> xy21 -> xy25 -> xy21 -> xy21 -> nullx2
+	b -> xy22 -> xy26 -> xy22 -> xy22 -> nullx2
+	a -> xy23 -> xy23 -> xy23 -> nullx2
+	d -> xy34 -> xy37 -> nullx3
+	c -> xy31 -> xy35 -> xy31 -> xy31 -> nullx3
+	b -> xy32 -> xy36 -> xy32 -> xy32 -> nullx3
+	a -> xy33 -> xy33 -> xy33 -> nullx3
+	d -> xy44 -> xy47 -> nullx4
+	c -> xy41 -> xy45 -> xy41 -> xy41 -> nullx4
+	b -> xy42 -> xy46 -> xy42 -> xy42 -> nullx4
+	a -> xy43 -> xy43 -> xy43 -> nullx4
+	d -> xy54 -> xy57 -> nullx5
+	c -> xy51 -> xy55 -> xy51 -> xy51 -> nullx5
+	b -> xy52 -> xy56 -> xy52 -> xy52 -> nullx5
+	a -> xy53 -> xy53 -> xy53 -> nullx5
+	d -> xy64 -> xy67 -> nullx6
+	c -> xy61 -> xy65 -> xy61 -> xy61 -> nullx6
+	b -> xy62 -> xy66 -> xy62 -> xy62 -> nullx6
+	a -> xy63 -> xy63 -> xy63 -> nullx6
+	d -> xy74 -> xy77 -> nullx7
+	c -> xy71 -> xy75 -> xy71 -> xy71 -> nullx7
+	b -> xy72 -> xy76 -> xy72 -> xy72 -> nullx7
+	a -> xy73 -> xy73 -> xy73 -> nullx7
+\\esto es un comentario
+	xy01[label="1"]
+	xy02[label="2"]
+	xy03[label="3"]
+	xy14[label="4"]
+	xy25[label="5"]
+	xy36[label="6"]
+	xy41[label="1"]
+	xy42[label="2"]
+	xy43[label="3"]
+	xy57[label="7"]
+	xy61[label="1"]
+	xy62[label="2"]
+	xy63[label="3"]
+	y0 -> xy01 -> xy02 -> xy03 -> nully00[constraint=false];
+	y1 -> xy14 -> nully11[constraint=false];
+	y2 -> xy25 -> nully22[constraint=false];
+	y3 -> xy36 -> nully33[constraint=false];
+	y4 -> xy41 -> xy42 -> xy43 -> nully44[constraint=false];
+	y5 -> xy57 -> nully55[constraint=false];
+	y6 -> xy61 -> xy62 -> xy63 -> nully66[constraint=false];
+	{ rank=same;root;null;d;c;b;a}
+	{ rank=same;y0;nully00;xy01;xy02;xy03}
+	{ rank=same;y1;nully11;xy14}
+	{ rank=same;y2;nully22;xy25}
+	{ rank=same;y3;nully33;xy36}
+	{ rank=same;y4;nully44;xy41;xy42;xy43}
+	{ rank=same;y5;nully55;xy57}
+	{ rank=same;y6;nully66;xy61;xy62;xy63}
+	{ rank=same;y7;nully77}
 }

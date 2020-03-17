@@ -411,12 +411,77 @@ namespace Compi1Proyecto1
             }
             texto += "nulll\n";
 
+            HashSet<listavertical> listavertical = new HashSet<listavertical>();
+            foreach (string item in this.AFD.getAlfabeto())
+            {
+                listavertical auxte = new listavertical(item);
+                foreach (Estado estado in this.AFD.getEstados())
+                {
+                    foreach (Transicion transicion in estado.getTransiciones())
+                    {
+                        if (transicion.simbolo.Equals(item))
+                            auxte.estados.Add(transicion.fin.id.ToString());
+                    }
+                }
+                listavertical.Add(auxte);
+            }
+            
+            HashSet<TableTrans> tableTrans = new HashSet<TableTrans>();
             foreach (Estado item in this.AFD.getEstados())
             {
+                TableTrans auxte = new TableTrans(item.id.ToString());
                 foreach (Transicion transicion in item.getTransiciones())
                 {
-                    texto += "\ty" + transicion.inicio.id + " -> xy" +transicion.fin.id;
+                    auxte.x.Add(transicion.fin.id.ToString());
                 }
+                tableTrans.Add(auxte);
+            }
+            /*int c = 0;
+            foreach (TableTrans item in tableTrans)
+            {
+                foreach (listavertical lis in listavertical)
+                {
+                    texto +="\t"+lis.simbolo + " -> ";
+                    foreach (string estado2 in lis.estados)
+                    {
+                        texto += "xy" + c + estado2+" -> " ;
+                    }
+                    texto += "nullx" + item.estado1+"\n";
+                }
+                c++;
+            }
+            texto += "\\\\esto es un comentario\n";*/
+
+            int c = 0;
+            foreach (TableTrans item in tableTrans)
+            {
+                
+                if (item.x.Count != 0)
+                {
+                    foreach (string estado2 in item.x)
+                    {
+                        texto +="\txy"+c+ estado2 + "[label=\""+estado2+"\"]\n";
+                    }
+                    
+                }
+                c++;
+            }
+            int x = 0;
+            foreach (TableTrans item in tableTrans)
+            {
+                
+                if (item.x.Count != 0)
+                {
+                    
+                    texto += "\ty" + item.estado1 + " -> ";
+                    foreach (string estado2 in item.x)
+                    {
+                         texto+= "xy"+x + estado2 + " -> ";
+                    }
+                    texto += "nully" +x+ item.estado1+ "[constraint=false];\n";
+                    
+                }
+                x++;
             }
 
             texto += "\t{ rank=same;root;null";
@@ -425,11 +490,56 @@ namespace Compi1Proyecto1
                 texto += ";" + item;
             }
             texto += "}\n";
+
+            int z = 0;
+            foreach (TableTrans item in tableTrans)
+            {
+                
+                texto += "\t{ rank=same;y"+item.estado1+";nully"+z+item.estado1;
+                if (item.x.Count != 0)
+                {
+                    foreach (string estado2 in item.x)
+                    {
+                        texto += ";xy"+z + estado2;
+                        
+                    }
+                }
+                texto += "}\n";
+                z++;
+            }
+            
             texto += "}";
             System.IO.File.WriteAllText(@"C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\tabla.dot", texto);
         }
+
+        public bool validarLexema()
+        {
+            return false;
+        }
     }
 
+    class listavertical
+    {
+        public string simbolo;
+        public List<string> estados;
+        public listavertical(string sim)
+        {
+            this.simbolo = sim;
+            this.estados = new List<string>();
+        }
+    }
+
+    class TableTrans
+    {
+        public string estado1, estado2;
+        public List<string> x;
+
+        public TableTrans(string estado2)
+        {
+            this.estado2 = estado2;
+            this.x = new List<string>();
+        }
+    }
     /*class Or : Estructura
     {
         Estructura est1,est2;
