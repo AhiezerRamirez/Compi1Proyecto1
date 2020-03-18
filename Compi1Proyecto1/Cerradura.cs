@@ -48,7 +48,7 @@ namespace Compi1Proyecto1
             return rusultado;
         }
 
-        /*public Estado mover(Estado estado, string simbolo)
+        public Estado mover(Estado estado, string simbolo)
         {
             ArrayList alcanzados = new ArrayList();
            
@@ -62,7 +62,7 @@ namespace Compi1Proyecto1
                 }
             }
             return (Estado)alcanzados[0];
-        }*/
+        }
 
         public HashSet<Estado>mover(HashSet<Estado> estados, string simbolo)
         {

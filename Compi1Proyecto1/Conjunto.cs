@@ -15,5 +15,7 @@ namespace Compi1Proyecto1
             this.nombre = nombre;
             this.elementos = new List<Token>();
         }
+
+        public Conjunto() { }
     }
 }

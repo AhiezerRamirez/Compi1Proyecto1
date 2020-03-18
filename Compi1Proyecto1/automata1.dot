@@ -1,6 +1,6 @@
 digraph automata_finito {
 	rankdir=LR;
-	node [shape=doublecircle, style = filled,color = mediumseagreen]; "17";
+	node [shape=doublecircle, style = filled,color = mediumseagreen]; "21";
 	node [shape=circle];
 	node [color=midnightblue,fontcolor=white];
 	edge [color=red];
@@ -25,5 +25,11 @@ digraph automata_finito {
 	"13" -> "14" [label="Epsion"];
 	"14" -> "15" [label="c"];
 	"15" -> "16" [label="Epsion"];
-	"16" -> "17" [label="d"];
+	"16" -> "17" [label="Epsion"];
+	"16" -> "19" [label="Epsion"];
+	"17" -> "18" [label="d"];
+	"18" -> "17" [label="Epsion"];
+	"18" -> "19" [label="Epsion"];
+	"19" -> "20" [label="Epsion"];
+	"20" -> "21" [label="d"];
 }

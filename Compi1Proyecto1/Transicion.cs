@@ -9,7 +9,7 @@ namespace Compi1Proyecto1
     public class Transicion
     {
         public Estado inicio, fin;
-        public string simbolo;
+        public string simbolo,tipo;
         public Transicion(Estado inicio, Estado fin, string simbolo)
         {
             this.inicio = inicio;

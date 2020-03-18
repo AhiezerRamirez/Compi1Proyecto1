@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Analizador.cs" />
+    <Compile Include="Arbol.cs" />
     <Compile Include="Automata.cs" />
     <Compile Include="Cerradura.cs" />
     <Compile Include="Conjunto.cs" />

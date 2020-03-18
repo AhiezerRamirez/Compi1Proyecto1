@@ -121,6 +121,14 @@ namespace Compi1Proyecto1
             Estado inicial = new Estado(0);
             Estado aceptacion = new Estado(1);
             Transicion tran = new Transicion(inicial, aceptacion, simbolo);
+            if (simbolo.StartsWith("{"))
+            {
+                tran.tipo = "conjunto";
+            }
+            else if (simbolo.StartsWith("\""))
+            {
+                tran.tipo = "cadena";
+            }
             inicial.setTransiciones(tran);
             afn.addEstados(inicial);
             afn.addEstados(aceptacion);
@@ -512,9 +520,42 @@ namespace Compi1Proyecto1
             System.IO.File.WriteAllText(@"C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\tabla.dot", texto);
         }
 
-        public bool validarLexema()
+        public bool validarLexema(string lexema)
         {
-            return false;
+            Estado inicial = this.AFD.getEstadoInicial();
+            ArrayList estados = this.AFD.getEstados();
+            ArrayList aceptacion = new ArrayList(this.AFD.getEstadosAceptacion());
+            HashSet<Estado> conjunto = cerradura.metodoCerradura(inicial);
+            foreach (Char ch in lexema.ToCharArray())
+            {
+                conjunto = cerradura.mover(conjunto, ch.ToString());
+                HashSet<Estado> temp = new HashSet<Estado>();
+                IEnumerator<Estado> iter = conjunto.GetEnumerator();
+                while (iter.MoveNext())
+                {
+                    Estado siguiente = iter.Current;
+                    temp.UnionWith(cerradura.metodoCerradura(siguiente));
+                }
+                conjunto = temp;
+            }
+            bool aceptado = false;
+            foreach (Estado estadoAceptacion in aceptacion)
+            {
+                if (conjunto.Contains(estadoAceptacion))
+                {
+                    aceptado = true;
+                }
+            }
+            if (aceptado)
+            {
+                Console.WriteLine("La cadena fue aceptada");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("El lexema no es reconocido por el automata ingresado");
+                return false;
+            }
         }
     }
 

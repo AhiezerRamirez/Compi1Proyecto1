@@ -75,16 +75,16 @@ namespace Compi1Proyecto1
                     conjuntos.Add(tempconjunto);
                 }
             }
-            //foreach (var item in conjuntos)
-            //{
-              //  Console.Write("Nombre del conjunto es: ");
-                //Console.WriteLine(item.nombre.lexema);
-                //foreach (Token i in item.elementos)
-                //{
-                  //  Console.Write(i.lexema);
-                //}
-                //Console.WriteLine();
-            //}
+            foreach (var item in conjuntos)
+            {
+                Console.Write("Nombre del conjunto es: ");
+                Console.WriteLine(item.nombre.lexema);
+                foreach (Token i in item.elementos)
+                {
+                  Console.Write(i.lexema);
+                }
+                Console.WriteLine();
+            }
         }
 
         public void separarExpresiones(ArrayList exp)
@@ -123,6 +123,10 @@ namespace Compi1Proyecto1
                     while (!auxtoken.lexema.Equals(";"))
                     {
                         auxtoken = (Token)auxexpresiones[i];
+                        if (auxexpresiones[i - 1].lexema.Equals("{"))
+                        {
+                            auxtoken.lexema = "{" + auxtoken.lexema+"}";
+                        }
                         auxexpresion.preorden.Add(auxtoken);
                         i++;
                     }
@@ -130,6 +134,7 @@ namespace Compi1Proyecto1
                 }
             }
 
+            
             foreach (Expresion item in expresiones)
             {
                 Console.WriteLine(item.nombre.lexema);
@@ -144,6 +149,16 @@ namespace Compi1Proyecto1
         public void separarLexemas(ArrayList lex)
         {
 
+        }
+
+        public void maketreeValidacion()
+        {
+            Arbol arbol = new Arbol("r1", conjuntos);
+            expresiones[0].preorden.RemoveAll(tokens => tokens.lexema.Equals("{"));
+            expresiones[0].preorden.RemoveAll(tokens => tokens.lexema.Equals("}"));
+            Nodo root = arbol.makeTreeValidacion(expresiones[0].preorden);
+            Console.WriteLine(root.lexema);
+            arbol.postfix(root);
         }
     }
 }

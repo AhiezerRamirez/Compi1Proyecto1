@@ -31,17 +31,35 @@ namespace Compi1Proyecto1
 
         private void BtnCargar1_Click(object sender, EventArgs e)
         {
-            //string[] lineas = TextArea1.Text.Split('\n');
-            //analizador.AnalizarEntrada(lineas);
+            string[] lineas = TextArea1.Text.Split('\n');
+            analizador.AnalizarEntrada(lineas);
             //string[] exp = { "_", "digito", "|", "letra", "|", "*", "letra", "." };
-            string[] exp = { "d", "c", "b", "b", "a", ".", "d", "c", ".", "|", "*", ".",".","." };
-            
-            Estructura estru = new Estructura(exp);
+            string[] exp = { ".",".",".","*", "|", ".","c" ,"d", ".", "a", "b", "b", "c", "+", "d"};
+
+            /*Estructura estru = new Estructura(exp);
             estru.estructurar();
             estru.graficarAFN();
             estru.makeAFD();
             estru.graficarAFD();
             estru.graficarTabla();
+            estru.validarLexema("bcdddd");
+            List<Conjunto> con = new List<Conjunto>();
+            Arbol arbol = new Arbol("r1",con);
+            List<Token> tokens = new List<Token>();
+            foreach (string item in exp)
+            {
+                if(item.Equals("*")|| item.Equals("|")|| item.Equals("+")|| item.Equals(".")|| item.Equals("?"))
+                {
+                    tokens.Add(new Token(item, ".", 1, 2, true));
+                }
+                else
+                {
+                    tokens.Add(new Token(item, ".", 1, 2, false));
+                }
+            }
+            Nodo root =arbol.makeTree(tokens);
+            Console.WriteLine(root.lexema);
+            arbol.postfix(root);*/
         }
     }
 }

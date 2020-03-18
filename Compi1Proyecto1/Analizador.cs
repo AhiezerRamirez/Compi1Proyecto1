@@ -302,6 +302,7 @@ namespace Compi1Proyecto1
             {
                 core.separarConjuntos(tokens);
                 core.separarExpresiones(tokens);
+                core.maketreeValidacion();
                 //Console.Write(stringtoken);
             }
             
