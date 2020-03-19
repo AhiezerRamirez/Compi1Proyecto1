@@ -74,7 +74,7 @@ namespace Compi1Proyecto1
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(e.Message+"LA PILA ESTABA VACIAAAAAAAA");
             }
         }
 
@@ -121,14 +121,6 @@ namespace Compi1Proyecto1
             Estado inicial = new Estado(0);
             Estado aceptacion = new Estado(1);
             Transicion tran = new Transicion(inicial, aceptacion, simbolo);
-            if (simbolo.StartsWith("{"))
-            {
-                tran.tipo = "conjunto";
-            }
-            else if (simbolo.StartsWith("\""))
-            {
-                tran.tipo = "cadena";
-            }
             inicial.setTransiciones(tran);
             afn.addEstados(inicial);
             afn.addEstados(aceptacion);
@@ -302,10 +294,8 @@ namespace Compi1Proyecto1
                     
                     HashSet<Estado> moveresponse = cerradura.mover(aux, item);
                     HashSet<Estado> result = new HashSet<Estado>();
-                    Console.WriteLine("Simbolo: {0} obtuvimos: {1}",item, moveresponse.Count);
                     foreach (Estado est in moveresponse)
                     {
-                        Console.WriteLine("Y son: {0}", est.id);
                         result.UnionWith(cerradura.metodoCerradura(est));
                     }
                     Estado prev =(Estado) automata.getEstados()[index];
@@ -316,7 +306,6 @@ namespace Compi1Proyecto1
                         //auxarraestado.Add(auxestado.id.ToString());
                         auxstring += auxestado.id.ToString();
                     }
-                    Console.WriteLine("Con el estado: {0}",auxstring);
                     if (result.Count != 0)
                     {
                         if (temp.Contains(auxstring))
@@ -376,7 +365,6 @@ namespace Compi1Proyecto1
             texto += "\tsecret_node [style=invis];\n" + "	secret_node -> \"" + this.AFD.getEstadoInicial().id + "\" [label=\"inicio\"];\n";
             foreach (Estado item in this.AFD.getEstados())
             {
-                Console.WriteLine("hola transciones de graficar");
                 foreach (Transicion transicion in item.transiciones)
                 {
                     //Console.WriteLine(transicion.DOT_String());

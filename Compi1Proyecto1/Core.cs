@@ -11,13 +11,16 @@ namespace Compi1Proyecto1
     {
         List<Conjunto> conjuntos;
         List<Expresion> expresiones;
+        List<LexemaEntrada> lexemaEntrada;
         List<Token> auxconjuntos,auxexpresiones,lexemas;
+
         public Core() {
             this.auxconjuntos = new List<Token>();
             this.conjuntos = new List<Conjunto>();
             this.auxexpresiones = new List<Token>();
             this.lexemas = new List<Token>();
             this.expresiones = new List<Expresion>();
+            this.lexemaEntrada = new List<LexemaEntrada>();
         }
 
         public void separarConjuntos(ArrayList tok)
@@ -75,16 +78,7 @@ namespace Compi1Proyecto1
                     conjuntos.Add(tempconjunto);
                 }
             }
-            foreach (var item in conjuntos)
-            {
-                Console.Write("Nombre del conjunto es: ");
-                Console.WriteLine(item.nombre.lexema);
-                foreach (Token i in item.elementos)
-                {
-                  Console.Write(i.lexema);
-                }
-                Console.WriteLine();
-            }
+            
         }
 
         public void separarExpresiones(ArrayList exp)
@@ -148,17 +142,95 @@ namespace Compi1Proyecto1
 
         public void separarLexemas(ArrayList lex)
         {
+            for (int i=0;i<lex.Count-1;i++)
+            {
+                Token ttoken = (Token)lex[i];
+                Token auxtoken = (Token)lex[i+1];
+                if (auxexpresiones.Any(x => x.lexema.Equals(ttoken.lexema))&& auxtoken.lexema.Equals(":"))
+                {
+                    i+=2;
+                    auxtoken = (Token)lex[i];
+                    lexemaEntrada.Add(new LexemaEntrada(ttoken, auxtoken.lexema));
+                }
+            }
 
+            Console.WriteLine(lexemaEntrada.Count);
+            foreach (LexemaEntrada item in lexemaEntrada)
+            {
+                Console.Write(item.nombre.lexema+": ");
+                Console.WriteLine(item.entrada);
+            }
         }
 
         public void maketreeValidacion()
         {
-            Arbol arbol = new Arbol("r1", conjuntos);
-            expresiones[0].preorden.RemoveAll(tokens => tokens.lexema.Equals("{"));
-            expresiones[0].preorden.RemoveAll(tokens => tokens.lexema.Equals("}"));
-            Nodo root = arbol.makeTreeValidacion(expresiones[0].preorden);
-            Console.WriteLine(root.lexema);
+            foreach (Expresion item in this.expresiones)
+            {
+                Arbol arbol = new Arbol(item.nombre.lexema, this.conjuntos);
+                item.preorden.RemoveAll(tokens => tokens.lexema.Equals("{"));
+                item.preorden.RemoveAll(tokens => tokens.lexema.Equals("}"));
+                Nodo root1=arbol.makeTree(item.preorden);
+                arbol.postfix2(root1);
+                List<string> listatokens2 = arbol.tokens2;
+                listatokens2.Reverse();
+                string[] tokensstrin2 = listatokens2.ToArray();
+                Estructura estru2 = new Estructura(tokensstrin2);
+                estru2.estructurar();
+                estru2.graficarAFN();
+                estru2.makeAFD();
+                estru2.graficarAFN();
+                estru2.graficarTabla();//Tengo que mandarle un número para que cada gráfica se llame difente
+
+                //-----------------Para validar lexemas
+
+                Nodo root = arbol.makeTreeValidacion(item.preorden);
+                arbol.postfix(root);
+                List<string> listatokens = arbol.tokens;
+                listatokens.Reverse();
+                string[] tokensstring = listatokens.ToArray();
+                Estructura estru = new Estructura(tokensstring);
+                estru.estructurar();
+                estru.makeAFD();
+                foreach(LexemaEntrada lex in this.lexemaEntrada)
+                {
+                    if (item.nombre.lexema.Equals(lex.nombre.lexema))
+                    {
+                        estru.validarLexema(lex.entrada);//Solo falta probar y afinar detalles
+                    }
+                }
+                //estru.validarLexema("bcdddd");
+                try
+                {
+                    //arbol.
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+            /*Arbol arbol = new Arbol("r1", conjuntos);
+            expresiones[1].preorden.RemoveAll(tokens => tokens.lexema.Equals("{"));
+            expresiones[1].preorden.RemoveAll(tokens => tokens.lexema.Equals("}"));
+            Nodo root = arbol.makeTreeValidacion(expresiones[1].preorden);
             arbol.postfix(root);
+            Console.WriteLine("\n");
+            List<string> listatokens = arbol.tokens;
+            listatokens.Reverse();
+            string[] tokensstring = listatokens.ToArray();
+            foreach (string item in tokensstring)
+            {
+                Console.Write(item);
+            }
+            Console.WriteLine("Fin de la entrada mofificada");
+            Console.WriteLine("\n");
+            
+            Estructura estru = new Estructura(tokensstring);
+            estru.estructurar();
+            //estru.graficarAFN();
+            estru.makeAFD();
+            estru.graficarAFD();
+            estru.validarLexema("bcdddd");*/
         }
     }
 }

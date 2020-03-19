@@ -20,16 +20,22 @@ namespace Compi1Proyecto1
             this.operador = false;
         }
     }
+
     class Arbol
     {
         
         string NombreExpresion;
         List<Conjunto> conjuntos;
+        public List<string> tokens,tokens2; 
+
         public Arbol(string nombre,List<Conjunto> conjunto)
         {
             this.NombreExpresion = nombre;
             this.conjuntos = conjunto;
+            this.tokens = new List<string>();
+            this.tokens2 = new List<string>();
         }
+        
         public Nodo makeTree(List<Token> prefix)
         {
             Stack<Nodo> stack = new Stack<Nodo>();
@@ -90,11 +96,22 @@ namespace Compi1Proyecto1
         {
             if (root == null)
                 return;
-            Console.WriteLine(root.lexema);
+            tokens.Add(root.lexema);
             postfix(root.left);
             postfix(root.right);
-                
+            //Console.WriteLine(root.lexema);
             
+        }
+
+        public void postfix2(Nodo root)
+        {
+            if (root == null)
+                return;
+            tokens2.Add(root.lexema);
+            postfix(root.left);
+            postfix(root.right);
+            //Console.WriteLine(root.lexema);
+
         }
 
         public Nodo makeTreeValidacion(List<Token> prefix)
@@ -106,7 +123,7 @@ namespace Compi1Proyecto1
             {
                 if (token.operador == false)
                 {
-                    if (token.lexema.StartsWith("{"))
+                    if (token.lexema.StartsWith("{") && !token.tipo.Equals("cadena"))
                     {
                         Stack<Nodo> st = new Stack<Nodo>();
                         Console.WriteLine("El lexema del conjunto es {0}", token.lexema);
@@ -124,7 +141,7 @@ namespace Compi1Proyecto1
                         }
                         if (auxconjunto.elementos[1].lexema.Equals("~"))
                         {
-                            for (int i = (int)Char.Parse(auxconjunto.elementos[0].lexema); i < (int)Char.Parse(auxconjunto.elementos[2].lexema); i++)
+                            for (int i = (int)Char.Parse(auxconjunto.elementos[0].lexema); i <=(int)Char.Parse(auxconjunto.elementos[2].lexema); i++)
                             {
                                 t1 = new Nodo(((char)i).ToString());
                                 st.Push(t1);

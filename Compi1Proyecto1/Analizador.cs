@@ -205,7 +205,7 @@ namespace Compi1Proyecto1
                                 palabra += auxpalabra;
                             break;
                         case 8:
-                            tokens.Add(new Token( '"'+palabra+'"',"cadena", i, j, false));
+                            tokens.Add(new Token( palabra,"cadena", i, j, false));
                             stringtoken += '"' + palabra + '"';
                             palabra = "";
                             estado = 0;
@@ -302,6 +302,7 @@ namespace Compi1Proyecto1
             {
                 core.separarConjuntos(tokens);
                 core.separarExpresiones(tokens);
+                core.separarLexemas(tokens);
                 core.maketreeValidacion();
                 //Console.Write(stringtoken);
             }

@@ -33,17 +33,17 @@ namespace Compi1Proyecto1
         {
             string[] lineas = TextArea1.Text.Split('\n');
             analizador.AnalizarEntrada(lineas);
-            //string[] exp = { "_", "digito", "|", "letra", "|", "*", "letra", "." };
-            string[] exp = { ".",".",".","*", "|", ".","c" ,"d", ".", "a", "b", "b", "c", "+", "d"};
-
-            /*Estructura estru = new Estructura(exp);
+            /*string[] exp = { "_", "digito", "|", "letra", "|", "*", "letra", "." };
+            //string[] exp = { ".",".",".","*", "|", ".","c" ,"d", ".", "a", "b", "b", "c", "+", "d"};
+            //exp.Reverse();
+            Estructura estru = new Estructura(exp);
             estru.estructurar();
             estru.graficarAFN();
             estru.makeAFD();
             estru.graficarAFD();
             estru.graficarTabla();
             estru.validarLexema("bcdddd");
-            List<Conjunto> con = new List<Conjunto>();
+            /*List<Conjunto> con = new List<Conjunto>();
             Arbol arbol = new Arbol("r1",con);
             List<Token> tokens = new List<Token>();
             foreach (string item in exp)
