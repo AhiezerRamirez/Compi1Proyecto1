@@ -43,6 +43,7 @@ namespace Compi1Proyecto1
             prefix.Reverse();
             foreach (Token token in prefix)
             {
+                //Console.WriteLine(token.lexema + " Dentro del arbol");
                 if (token.operador == false)
                 {
                     t = new Nodo(token.lexema);
@@ -108,9 +109,8 @@ namespace Compi1Proyecto1
             if (root == null)
                 return;
             tokens2.Add(root.lexema);
-            postfix(root.left);
-            postfix(root.right);
-            //Console.WriteLine(root.lexema);
+            postfix2(root.left);
+            postfix2(root.right);
 
         }
 
@@ -118,9 +118,10 @@ namespace Compi1Proyecto1
         {
             Stack<Nodo> stack = new Stack<Nodo>();
             Nodo t, t1, t2, t3, t4;
-            prefix.Reverse();
+            //prefix.Reverse();
             foreach (Token token in prefix)
             {
+                //Console.WriteLine(token.lexema + " Dentro del arbol de validar");
                 if (token.operador == false)
                 {
                     if (token.lexema.StartsWith("{") && !token.tipo.Equals("cadena"))

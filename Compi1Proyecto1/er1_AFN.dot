@@ -6,7 +6,7 @@ digraph automata_finito {
 	edge [color=red];
 	secret_node [style=invis];
 	secret_node -> "0" [label="inicio"];
-	"0" -> "1" [label="letra"];
+	"0" -> "1" [label="{letra}"];
 	"1" -> "2" [label="Epsion"];
 	"2" -> "3" [label="Epsion"];
 	"2" -> "13" [label="Epsion"];
@@ -16,10 +16,10 @@ digraph automata_finito {
 	"4" -> "5" [label="Epsion"];
 	"5" -> "6" [label="_"];
 	"6" -> "9" [label="Epsion"];
-	"7" -> "8" [label="digito"];
+	"7" -> "8" [label="{digito}"];
 	"8" -> "9" [label="Epsion"];
 	"9" -> "12" [label="Epsion"];
-	"10" -> "11" [label="letra"];
+	"10" -> "11" [label="{letra}"];
 	"11" -> "12" [label="Epsion"];
 	"12" -> "3" [label="Epsion"];
 	"12" -> "13" [label="Epsion"];

@@ -35,7 +35,8 @@ namespace Compi1Proyecto1
         {
             Stack<Automata> pila = new Stack<Automata>();
             try {
-                foreach (string item in ERs)
+                //ERs.Reverse();
+                foreach (string item in ERs.Reverse())
                 {
                     switch (item)
                     {
@@ -222,7 +223,7 @@ namespace Compi1Proyecto1
             return afn_union;
         }
 
-        public void graficarAFN()
+        public void graficarAFN(string er)
         {
             string texto = "digraph automata_finito {\n";
             texto += "\trankdir=LR;" + "\n";
@@ -246,7 +247,7 @@ namespace Compi1Proyecto1
                 }
             }
             texto += "}";
-            System.IO.File.WriteAllText(@"C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\automata1.dot",texto);
+            System.IO.File.WriteAllText(@"C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\"+er+"_AFN.dot",texto);
         }
 
         public Automata getAfn()
@@ -349,7 +350,7 @@ namespace Compi1Proyecto1
             this.AFD.setTipo("AFD");
         }
 
-        public void graficarAFD()
+        public void graficarAFD(string er)
         {
             string texto = "digraph AFD {\n";
             texto += "\trankdir=LR;" + "\n";
@@ -372,11 +373,11 @@ namespace Compi1Proyecto1
                 }
             }
             texto += "}";
-            System.IO.File.WriteAllText(@"C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\AFD.dot", texto);
+            System.IO.File.WriteAllText(@"C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\"+er+"_AFD.dot", texto);
 
         }
 
-        public void graficarTabla()
+        public void graficarTabla(string er)
         {
             string texto = "digraph tabla{ \n \trankdir=TB;\n\tnode [shape=rectangle, height=0.5, width=0.5];\n\tgraph[ nodesep = 0.5];\n";
             
@@ -469,7 +470,7 @@ namespace Compi1Proyecto1
                 if (item.x.Count != 0)
                 {
                     
-                    texto += "\ty" + item.estado1 + " -> ";
+                    texto += "\ty"+x + item.estado1 + " -> ";
                     foreach (string estado2 in item.x)
                     {
                          texto+= "xy"+x + estado2 + " -> ";
@@ -491,7 +492,7 @@ namespace Compi1Proyecto1
             foreach (TableTrans item in tableTrans)
             {
                 
-                texto += "\t{ rank=same;y"+item.estado1+";nully"+z+item.estado1;
+                texto += "\t{ rank=same;y"+z+item.estado1+";nully"+z+item.estado1;
                 if (item.x.Count != 0)
                 {
                     foreach (string estado2 in item.x)
@@ -505,7 +506,7 @@ namespace Compi1Proyecto1
             }
             
             texto += "}";
-            System.IO.File.WriteAllText(@"C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\tabla.dot", texto);
+            System.IO.File.WriteAllText(@"C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\"+er+"_tabla.dot", texto);
         }
 
         public bool validarLexema(string lexema)
