@@ -2,10 +2,10 @@ digraph tabla{
  	rankdir=TB;
 	node [shape=rectangle, height=0.5, width=0.5];
 	graph[ nodesep = 0.5];
-	c[label="c"];
 	d[label="d"];
-	a[label="a"];
+	c[label="c"];
 	b[label="b"];
+	a[label="a"];
 	root[label="root"];
 	y0[label="0"];
 	y1[label="1"];
@@ -16,7 +16,7 @@ digraph tabla{
 	y6[label="6"];
 	y7[label="7"];
 	y8[label="8"];
-	root -> c -> d -> a -> b -> null
+	root -> d -> c -> b -> a -> null
 	root -> y0 -> y1 -> y2 -> y3 -> y4 -> y5 -> y6 -> y7 -> y8 -> nulll
 	xy01[label="1"]
 	xy02[label="2"]
@@ -27,10 +27,10 @@ digraph tabla{
 	xy41[label="1"]
 	xy42[label="2"]
 	xy43[label="3"]
-	xy51[label="1"]
-	xy52[label="2"]
-	xy53[label="3"]
-	xy67[label="7"]
+	xy57[label="7"]
+	xy61[label="1"]
+	xy62[label="2"]
+	xy63[label="3"]
 	xy78[label="8"]
 	xy88[label="8"]
 	y0 -> xy01 -> xy02 -> xy03 -> nully0[constraint=false];
@@ -38,18 +38,18 @@ digraph tabla{
 	y2 -> xy25 -> nully2[constraint=false];
 	y3 -> xy36 -> nully3[constraint=false];
 	y4 -> xy41 -> xy42 -> xy43 -> nully4[constraint=false];
-	y5 -> xy51 -> xy52 -> xy53 -> nully5[constraint=false];
-	y6 -> xy67 -> nully6[constraint=false];
+	y5 -> xy57 -> nully5[constraint=false];
+	y6 -> xy61 -> xy62 -> xy63 -> nully6[constraint=false];
 	y7 -> xy78 -> nully7[constraint=false];
 	y8 -> xy88 -> nully8[constraint=false];
-	{ rank=same;root;null;c;d;a;b}
+	{ rank=same;root;null;d;c;b;a}
 	{ rank=same;y0;nully0;xy01;xy02;xy03}
 	{ rank=same;y1;nully1;xy14}
 	{ rank=same;y2;nully2;xy25}
 	{ rank=same;y3;nully3;xy36}
 	{ rank=same;y4;nully4;xy41;xy42;xy43}
-	{ rank=same;y5;nully5;xy51;xy52;xy53}
-	{ rank=same;y6;nully6;xy67}
+	{ rank=same;y5;nully5;xy57}
+	{ rank=same;y6;nully6;xy61;xy62;xy63}
 	{ rank=same;y7;nully7;xy78}
 	{ rank=same;y8;nully8;xy88}
 }

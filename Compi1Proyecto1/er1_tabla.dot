@@ -2,16 +2,16 @@ digraph tabla{
  	rankdir=TB;
 	node [shape=rectangle, height=0.5, width=0.5];
 	graph[ nodesep = 0.5];
-	{letra}[label="{letra}"];
+	|[label="|"];
 	{digito}[label="{digito}"];
-	_[label="_"];
+	{letra}[label="{letra}"];
 	root[label="root"];
 	y0[label="0"];
 	y1[label="1"];
 	y2[label="2"];
 	y3[label="3"];
 	y4[label="4"];
-	root -> {letra} -> {digito} -> _ -> null
+	root -> | -> {digito} -> {letra} -> null
 	root -> y0 -> y1 -> y2 -> y3 -> y4 -> nulll
 	xy01[label="1"]
 	xy12[label="2"]
@@ -31,7 +31,7 @@ digraph tabla{
 	y2 -> xy22 -> xy23 -> xy24 -> nully2[constraint=false];
 	y3 -> xy32 -> xy33 -> xy34 -> nully3[constraint=false];
 	y4 -> xy42 -> xy43 -> xy44 -> nully4[constraint=false];
-	{ rank=same;root;null;{letra};{digito};_}
+	{ rank=same;root;null;|;{digito};{letra}}
 	{ rank=same;y0;nully0;xy01}
 	{ rank=same;y1;nully1;xy12;xy13;xy14}
 	{ rank=same;y2;nully2;xy22;xy23;xy24}

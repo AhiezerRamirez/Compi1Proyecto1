@@ -20,12 +20,12 @@ namespace Compi1Proyecto1
         //int cont;
         //public abstract Object ejecutar();
         //public abstract Object numerar();
-        string[] ERs;
+        List<Nodo> ERs;
         Cerradura cerradura;
         Automata AFN;
         Automata AFD;
         string nombre;
-        public Estructura(string[] ers)
+        public Estructura(List<Nodo> ers)
         {
             this.ERs = ers;
             this.cerradura = new Cerradura();
@@ -35,41 +35,44 @@ namespace Compi1Proyecto1
         {
             Stack<Automata> pila = new Stack<Automata>();
             try {
-                //ERs.Reverse();
-                foreach (string item in ERs.Reverse())
+                ERs.Reverse();
+                foreach (Nodo item in ERs)
                 {
-                    switch (item)
+                    if (item.lexema.Equals("*") && item.operador == true)
                     {
-                        case "*":
-                            Automata kleen=cerraduraKleen(pila.Pop());
-                            pila.Push(kleen);
-                            this.AFN = kleen;
-                            break;
-                        case ".":
-                            Automata concat_param1 = (Automata)pila.Pop();
-                            Automata concat_param2 = (Automata)pila.Pop();
-                            Automata concat_result = concatenacion(concat_param2, concat_param1);
 
-                            pila.Push(concat_result);
-                            this.AFN = concat_result;
-                            break;
-                        case "|":
-                            Automata union_param1 = (Automata)pila.Pop();
-                            Automata union_param2 = (Automata)pila.Pop();
-                            Automata union_result = uninion(union_param2, union_param1);
+                        Automata kleen = cerraduraKleen(pila.Pop());
+                        pila.Push(kleen);
+                        this.AFN = kleen;
+                    }else if (item.lexema.Equals(".") && item.operador == true)
+                    {
+                        Automata concat_param1 = (Automata)pila.Pop();
+                        Automata concat_param2 = (Automata)pila.Pop();
+                        Automata concat_result = concatenacion(concat_param2, concat_param1);
 
-
-                            pila.Push(union_result);
-
-                            this.AFN = union_result;
-                            break;
-                        default:
-                            Automata simple = Term(item);
-                            pila.Push(simple);
-                            this.AFN = simple;
-                            break;
+                        pila.Push(concat_result);
+                        this.AFN = concat_result;
+                    }else if(item.lexema.Equals("|") && item.operador == true)
+                    {
+                        Automata union_param1 = (Automata)pila.Pop();
+                        Automata union_param2 = (Automata)pila.Pop();
+                        Automata union_result = uninion(union_param2, union_param1);
+                        pila.Push(union_result);
+                        this.AFN = union_result;
+                    }
+                    else
+                    {
+                        Automata simple = Term(item.lexema);
+                        pila.Push(simple);
+                        this.AFN = simple;
                     }
                 }
+                List<string> alfab = new List<string>();
+                foreach (Nodo item in ERs)
+                {
+                    alfab.Add(item.lexema);
+                }
+                string[] auxalfb = alfab.ToArray();
                 this.AFN.createAlfabeto(ERs);
                 this.AFN.setTipo("AFN");
             }

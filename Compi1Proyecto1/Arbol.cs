@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Compi1Proyecto1
 {
-    class Nodo
+    public class Nodo
     {
         public Nodo left, right;
         public string lexema;
@@ -26,14 +26,14 @@ namespace Compi1Proyecto1
         
         string NombreExpresion;
         List<Conjunto> conjuntos;
-        public List<string> tokens,tokens2; 
+        public List<Nodo> tokens,tokens2; 
 
         public Arbol(string nombre,List<Conjunto> conjunto)
         {
             this.NombreExpresion = nombre;
             this.conjuntos = conjunto;
-            this.tokens = new List<string>();
-            this.tokens2 = new List<string>();
+            this.tokens = new List<Nodo>();
+            this.tokens2 = new List<Nodo>();
         }
         
         public Nodo makeTree(List<Token> prefix)
@@ -97,7 +97,7 @@ namespace Compi1Proyecto1
         {
             if (root == null)
                 return;
-            tokens.Add(root.lexema);
+            tokens.Add(root);
             postfix(root.left);
             postfix(root.right);
             //Console.WriteLine(root.lexema);
@@ -108,7 +108,7 @@ namespace Compi1Proyecto1
         {
             if (root == null)
                 return;
-            tokens2.Add(root.lexema);
+            tokens2.Add(root);
             postfix2(root.left);
             postfix2(root.right);
 
@@ -144,8 +144,13 @@ namespace Compi1Proyecto1
                         {
                             for (int i = (int)Char.Parse(auxconjunto.elementos[0].lexema); i <=(int)Char.Parse(auxconjunto.elementos[2].lexema); i++)
                             {
-                                t1 = new Nodo(((char)i).ToString());
-                                st.Push(t1);
+                                //char ch = ((char)i);
+                                //if (!Char.IsLetterOrDigit(ch))
+                                //{
+                                    t1 = new Nodo(((char)i).ToString());
+                                    st.Push(t1);
+                                //}
+                                
                             }
                             int c = st.Count;
                             while (st.Count != 0)

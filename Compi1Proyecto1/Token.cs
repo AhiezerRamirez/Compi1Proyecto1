@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Compi1Proyecto1
 {
-    class Token
+    public class Token
     {
         public string lexema,tipo;
         public int i, j;

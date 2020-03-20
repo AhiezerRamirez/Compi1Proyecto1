@@ -59,13 +59,13 @@ namespace Compi1Proyecto1
             //HashSet<string> aux = this.alfabeto.Reverse<string>();
             return alfabeto;
         }
-        public void createAlfabeto(String[] regex)
+        public void createAlfabeto(List<Nodo> regex)
         {
-            foreach (string ch in regex)
+            foreach (Nodo ch in regex)
             {
 
-                if (ch != "|" && ch != "." && ch != "*")
-                    this.alfabeto.Add(ch);
+                if (ch.operador==false)
+                    this.alfabeto.Add(ch.lexema);
             }
         }
         public void setAlfabeto(HashSet<string> alfabeto)

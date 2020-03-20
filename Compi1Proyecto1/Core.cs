@@ -174,10 +174,10 @@ namespace Compi1Proyecto1
                     item.preorden.RemoveAll(token => token.lexema.Equals(";"));
                     Nodo root1 = arbol.makeTree(item.preorden);
                     arbol.postfix2(root1);
-                    List<string> listatokens2 = arbol.tokens2;
+                    List<Nodo> listatokens2 = arbol.tokens2;
                     //listatokens2.Reverse();
-                    string[] tokensstrin2 = listatokens2.ToArray();
-                    Estructura estru2 = new Estructura(tokensstrin2);
+                    //string[] tokensstrin2 = listatokens2.ToArray();
+                    Estructura estru2 = new Estructura(listatokens2);
                     estru2.estructurar();
                     estru2.graficarAFN(item.nombre.lexema);
                     estru2.makeAFD();
@@ -188,10 +188,10 @@ namespace Compi1Proyecto1
 
                     Nodo root = arbol.makeTreeValidacion(item.preorden);
                     arbol.postfix(root);
-                    List<string> listatokens = arbol.tokens;
+                    List<Nodo> listatokens = arbol.tokens;
                     //listatokens.Reverse();
-                    string[] tokensstring = listatokens.ToArray();
-                    Estructura estru = new Estructura(tokensstring);
+                    //string[] tokensstring = listatokens.ToArray();
+                    Estructura estru = new Estructura(listatokens);
                     estru.estructurar();
                     estru.makeAFD();
                     foreach (LexemaEntrada lex in this.lexemaEntrada)
