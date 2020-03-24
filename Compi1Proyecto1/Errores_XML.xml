@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ListaErrores>
+  <Error>
+    <Valor>%</Valor>
+    <Fila>15</Fila>
+    <Columna>0</Columna>
+  </Error>
+  <Error>
+    <Valor>%</Valor>
+    <Fila>15</Fila>
+    <Columna>1</Columna>
+  </Error>
+  <Error>
+    <Valor>%</Valor>
+    <Fila>16</Fila>
+    <Columna>0</Columna>
+  </Error>
+  <Error>
+    <Valor>%</Valor>
+    <Fila>16</Fila>
+    <Columna>1</Columna>
+  </Error>
+  <Error>
+    <Valor>@</Valor>
+    <Fila>20</Fila>
+    <Columna>0</Columna>
+  </Error>
+</ListaErrores>

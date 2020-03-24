@@ -74,11 +74,39 @@ namespace Compi1Proyecto1
                         item++;
                         auxtoken = (Token)auxconjuntos[item];
                     }
-                    tempconjunto.elementos.Add(auxtoken);
+                    //tempconjunto.elementos.Add(auxtoken);
                     conjuntos.Add(tempconjunto);
                 }
             }
-            
+            for (int i=0;i < conjuntos.Count; i++)
+            {
+                Conjunto aux=conjuntos[i];
+                for (int j=0; j<aux.elementos.Count;j++)
+                {
+                    Token auxtoken = aux.elementos[j];
+                    if (auxtoken.lexema.Equals("\\") && (aux.elementos[j+1].lexema.Equals("n")|| aux.elementos[j + 1].lexema.Equals("t")|| aux.elementos[j + 1].lexema.Equals("'")|| aux.elementos[j + 1].lexema.Equals("\"")))
+                    {
+                        aux.elementos[j+1].lexema ="\"\\"+ aux.elementos[j + 1].lexema+"\"";
+                        aux.elementos.RemoveAt(j);
+                    }
+                }
+            }
+
+            foreach (Conjunto item in conjuntos)
+            {
+                item.elementos.RemoveAll(to => to.lexema.Equals(","));
+                //item.elementos.RemoveAll(to => to.lexema.Equals("\\"));
+            }
+
+            /*foreach (Conjunto item in conjuntos)
+            {
+                Console.WriteLine(item.nombre.lexema);
+                foreach (Token toks in item.elementos)
+                {
+                    Console.Write(toks.lexema+"_");
+                }
+                Console.WriteLine();
+            }*/
         }
 
         public void separarExpresiones(ArrayList exp)
@@ -100,10 +128,6 @@ namespace Compi1Proyecto1
                     auxexpresiones.Add(auxtoken1);
                 }
             }
-            /*foreach (Token item in auxexpresiones)
-            {
-                Console.WriteLine(item.lexema);
-            }*/
             
             for (int i = 0; i < auxexpresiones.Count; i++)
             {
@@ -121,7 +145,8 @@ namespace Compi1Proyecto1
                         {
                             auxtoken.lexema = "{" + auxtoken.lexema+"}";
                         }
-                        auxexpresion.preorden.Add(auxtoken);
+                        if(!auxtoken.lexema.Equals(";"))
+                            auxexpresion.preorden.Add(auxtoken);
                         i++;
                     }
                     expresiones.Add(auxexpresion);
@@ -129,15 +154,15 @@ namespace Compi1Proyecto1
             }
 
             
-            /*foreach (Expresion item in expresiones)
+            foreach (Expresion item in expresiones)
             {
                 Console.WriteLine(item.nombre.lexema);
                 foreach (var item2 in item.preorden)
                 {
-                    Console.Write(item2.lexema);
+                    Console.Write(item2.lexema+"_");
                 }
                 Console.WriteLine();
-            }*/
+            }
         }
 
         public void separarLexemas(ArrayList lex)
@@ -153,27 +178,30 @@ namespace Compi1Proyecto1
                     lexemaEntrada.Add(new LexemaEntrada(ttoken, auxtoken.lexema));
                 }
             }
-
-            /*Console.WriteLine(lexemaEntrada.Count);
-            foreach (LexemaEntrada item in lexemaEntrada)
+            
+            /*foreach (LexemaEntrada item in lexemaEntrada)
             {
                 Console.Write(item.nombre.lexema+": ");
                 Console.WriteLine(item.entrada);
             }*/
         }
 
-        public void maketreeValidacion()
+        public ArrayList maketreeValidacion()
         {
+            ArrayList rutas = new ArrayList();
+            string mensaje="";
+            string[] paths; 
             foreach (Expresion item in this.expresiones)
             {
-                //try
-                //{
+                try
+                {
                     Arbol arbol = new Arbol(item.nombre.lexema, this.conjuntos);
                     item.preorden.RemoveAll(tokens => tokens.lexema.Equals("{"));
                     item.preorden.RemoveAll(tokens => tokens.lexema.Equals("}"));
                     item.preorden.RemoveAll(token => token.lexema.Equals(";"));
                     Nodo root1 = arbol.makeTree(item.preorden);
                     arbol.postfix2(root1);
+                    //Console.WriteLine();
                     List<Nodo> listatokens2 = arbol.tokens2;
                     //listatokens2.Reverse();
                     //string[] tokensstrin2 = listatokens2.ToArray();
@@ -183,7 +211,12 @@ namespace Compi1Proyecto1
                     estru2.makeAFD();
                     estru2.graficarAFD(item.nombre.lexema);
                     estru2.graficarTabla(item.nombre.lexema);//Tengo que mandarle un número para que cada gráfica se llame difente
-
+                
+                    paths = new string[4];
+                    paths[0] = "C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\" + item.nombre.lexema + "_AFN.png";
+                    paths[1] = "C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\" + item.nombre.lexema + "_AFD.png";
+                    paths[2] = "C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\" + item.nombre.lexema + "_tabla.png";
+                
                     //-----------------Para validar lexemas
 
                     Nodo root = arbol.makeTreeValidacion(item.preorden);
@@ -198,15 +231,21 @@ namespace Compi1Proyecto1
                     {
                         if (item.nombre.lexema.Equals(lex.nombre.lexema))
                         {
-                            estru.validarLexema(lex.entrada);//Solo falta probar y afinar detalles
+                            mensaje+=estru.validarLexema(lex.entrada,lex.nombre)+"\n\n";//Solo falta probar y afinar detalles
                         }
                     }
-                //}
-                //catch (Exception e)
-                //{
-                //    System.Windows.Forms.MessageBox.Show(e.ToString());
-                //}
+                //return rutas;
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show("Expresion regular o conjunto incorrecto");
+                    return null;
+                }
+                paths[3] = mensaje;
+                rutas.Add(paths);
             }
+            
+            return rutas;
             /*Arbol arbol = new Arbol("r1", conjuntos);
             expresiones[0].preorden.RemoveAll(tokens => tokens.lexema.Equals("{"));
             expresiones[0].preorden.RemoveAll(tokens => tokens.lexema.Equals("}"));

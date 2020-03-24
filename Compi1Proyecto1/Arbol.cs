@@ -99,8 +99,9 @@ namespace Compi1Proyecto1
                 return;
             tokens.Add(root);
             postfix(root.left);
+            //Console.Write(root.lexema);
             postfix(root.right);
-            //Console.WriteLine(root.lexema);
+            //Console.Write(root.lexema);
             
         }
 
@@ -127,9 +128,9 @@ namespace Compi1Proyecto1
                     if (token.lexema.StartsWith("{") && !token.tipo.Equals("cadena"))
                     {
                         Stack<Nodo> st = new Stack<Nodo>();
-                        Console.WriteLine("El lexema del conjunto es {0}", token.lexema);
+                        //Console.WriteLine("El lexema del conjunto es {0}", token.lexema);
                         string auxlexema = token.lexema.Trim('{', '}');
-                        Console.WriteLine("El trim  es {0}", auxlexema);
+                        //Console.WriteLine("El trim  es {0}", auxlexema);
                         Conjunto auxconjunto = new Conjunto() ;
                         foreach (Conjunto item in conjuntos)
                         {

@@ -15,6 +15,7 @@ namespace Compi1Proyecto1
         ArrayList tokens=new ArrayList();
         ArrayList errores = new ArrayList();
         Core core = new Core();
+        PDF pdf = new PDF();
         public Analizador() { }
 
         private void analizar(string[] cadena)
@@ -104,7 +105,11 @@ namespace Compi1Proyecto1
                             else if (auxpalabra.Equals('['))
                             {
                                 estado = 13;
-                                palabra += auxpalabra;
+                                //palabra += auxpalabra;
+                            }
+                            else if (auxpalabra.Equals('\\'))
+                            {
+                                estado = 12;
                             }
                             else if (Char.IsLetter(auxpalabra))
                             {
@@ -241,13 +246,41 @@ namespace Compi1Proyecto1
                             }
                             break;
                         case 12:
-                            
+                            if (auxpalabra.Equals('n'))
+                            {
+                                tokens.Add(new Token("\n", "especial", i, j, false));
+                                stringtoken += "\n";
+                                estado = 0;
+                            }
+                            else if (auxpalabra.Equals('t'))
+                            {
+                                tokens.Add(new Token(" \t", "especial", i, j, false));
+                                stringtoken += "\t";
+                                estado = 0;
+                            }
+                            else if (auxpalabra.Equals('"'))
+                            {
+                                tokens.Add(new Token("\"", "especial", i, j, false));
+                                stringtoken += "\"";
+                                estado = 0;
+                            }else if (auxpalabra.Equals('\''))
+                            {
+                                tokens.Add(new Token("'", "especial", i, j, false));
+                                stringtoken += "\"";
+                                estado = 0;
+                            }
+                            else
+                            {
+                                errores.Add(new Error(Char.ToString(auxpalabra), i, j));
+                                estado = 0;
+                                palabra = "";
+                            }
                             break;
                         case 13:
                             if (auxpalabra.Equals(':'))
                             {
                                 estado = 14;
-                                palabra += auxpalabra;
+                                //palabra += auxpalabra;
                             }
                             else
                             {
@@ -269,7 +302,8 @@ namespace Compi1Proyecto1
                         case 15:
                             if (auxpalabra.Equals(']'))
                             {
-                                palabra += auxpalabra;
+                                //palabra += auxpalabra;
+                                palabra = palabra.Remove(palabra.Length - 1, 1);
                                 tokens.Add(new Token(palabra, "especial", i, j, false));
                                 stringtoken += palabra;
                                 estado = 0;
@@ -286,25 +320,35 @@ namespace Compi1Proyecto1
             }
         }
 
-        public void AnalizarEntrada(string[] cadena)
+        public ArrayList AnalizarEntrada(string[] cadena)
         {
+            ArrayList rutas;
             analizar(cadena);
             if (errores.Count > 0)
             {
                 System.Windows.Forms.MessageBox.Show("Errores Lexicos encontrados, Revise archivo PDF");
+                pdf.pdfErrors(errores);
+                //mLFile.XMLError(errores);
                 foreach(Error err in errores)
                 {
                     Console.WriteLine(err.error);
                 }
-
+                return null;
             }
             else
             {
                 core.separarConjuntos(tokens);
                 core.separarExpresiones(tokens);
                 core.separarLexemas(tokens);
-                core.maketreeValidacion();
+                rutas=core.maketreeValidacion();
+                //mLFile.makeXMLFile(tokens);
+                pdf.makePDF(tokens);
                 //Console.Write(stringtoken);
+                /*foreach (Token item in tokens)
+                {
+                    Console.WriteLine("{0} {1}", item.lexema, item.tipo);
+                }*/
+                return rutas;
             }
             
         }

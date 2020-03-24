@@ -8,3 +8,6 @@ C:\Users\Lissette\source\repos\Compi1Proyecto1\Compi1Proyecto1\obj\Debug\Compi1P
 C:\Users\Lissette\source\repos\Compi1Proyecto1\Compi1Proyecto1\obj\Debug\Compi1Proyecto1.exe
 C:\Users\Lissette\source\repos\Compi1Proyecto1\Compi1Proyecto1\obj\Debug\Compi1Proyecto1.pdb
 C:\Users\Lissette\source\repos\Compi1Proyecto1\Compi1Proyecto1\obj\Debug\Compi1Proyecto1.Form1.resources
+C:\Users\Lissette\source\repos\Compi1Proyecto1\Compi1Proyecto1\bin\Debug\itextsharp.dll
+C:\Users\Lissette\source\repos\Compi1Proyecto1\Compi1Proyecto1\bin\Debug\itextsharp.xml
+C:\Users\Lissette\source\repos\Compi1Proyecto1\Compi1Proyecto1\obj\Debug\Compi1Proyecto1.csproj.CopyComplete

@@ -2,39 +2,42 @@ digraph tabla{
  	rankdir=TB;
 	node [shape=rectangle, height=0.5, width=0.5];
 	graph[ nodesep = 0.5];
-	|[label="|"];
-	{digito}[label="{digito}"];
-	{letra}[label="{letra}"];
+	x0[label="_"];
+	x1[label="{digito}"];
+	x2[label="{letra}"];
 	root[label="root"];
 	y0[label="0"];
 	y1[label="1"];
 	y2[label="2"];
 	y3[label="3"];
 	y4[label="4"];
-	root -> | -> {digito} -> {letra} -> null
-	root -> y0 -> y1 -> y2 -> y3 -> y4 -> nulll
-	xy01[label="1"]
-	xy12[label="2"]
-	xy13[label="3"]
-	xy14[label="4"]
-	xy22[label="2"]
-	xy23[label="3"]
-	xy24[label="4"]
-	xy32[label="2"]
-	xy33[label="3"]
-	xy34[label="4"]
-	xy42[label="2"]
-	xy43[label="3"]
-	xy44[label="4"]
-	y0 -> xy01 -> nully0[constraint=false];
-	y1 -> xy12 -> xy13 -> xy14 -> nully1[constraint=false];
-	y2 -> xy22 -> xy23 -> xy24 -> nully2[constraint=false];
-	y3 -> xy32 -> xy33 -> xy34 -> nully3[constraint=false];
-	y4 -> xy42 -> xy43 -> xy44 -> nully4[constraint=false];
-	{ rank=same;root;null;|;{digito};{letra}}
-	{ rank=same;y0;nully0;xy01}
-	{ rank=same;y1;nully1;xy12;xy13;xy14}
-	{ rank=same;y2;nully2;xy22;xy23;xy24}
-	{ rank=same;y3;nully3;xy32;xy33;xy34}
-	{ rank=same;y4;nully4;xy42;xy43;xy44}
+	root -> x0 -> x1 -> x2
+	root -> y0 -> y1 -> y2 -> y3 -> y4
+	xy02[label="1"];
+	xy10[label="2"];
+	xy11[label="3"];
+	xy12[label="4"];
+	xy20[label="2"];
+	xy21[label="3"];
+	xy22[label="4"];
+	xy30[label="2"];
+	xy31[label="3"];
+	xy32[label="4"];
+	xy40[label="2"];
+	xy41[label="3"];
+	xy42[label="4"];
+	y0 -> 	xy02[constraint=false];
+	y1 -> xy10 -> xy11 -> 	xy12[constraint=false];
+	y2 -> xy20 -> xy21 -> 	xy22[constraint=false];
+	y3 -> xy30 -> xy31 -> 	xy32[constraint=false];
+	y4 -> xy40 -> xy41 -> 	xy42[constraint=false];
+	x0 -> xy10 -> xy20 -> xy30 -> 	xy40;
+	x1 -> xy11 -> xy21 -> xy31 -> 	xy41;
+	x2 -> xy02 -> xy12 -> xy22 -> xy32 -> 	xy42;
+	{ rank=same;root;x0;x1;x2}
+	{ rank=same;y0;xy02}
+	{ rank=same;y1;xy10;xy11;xy12}
+	{ rank=same;y2;xy20;xy21;xy22}
+	{ rank=same;y3;xy30;xy31;xy32}
+	{ rank=same;y4;xy40;xy41;xy42}
 }

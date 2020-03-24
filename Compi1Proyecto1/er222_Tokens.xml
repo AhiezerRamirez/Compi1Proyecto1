@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ListaToken>
+  <Token>
+    <Nombre>identificador</Nombre>
+    <Valor>bcd</Valor>
+    <Fila>22</Fila>
+    <Columna>31</Columna>
+  </Token>
+</ListaToken>

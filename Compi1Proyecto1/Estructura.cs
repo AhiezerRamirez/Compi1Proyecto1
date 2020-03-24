@@ -24,11 +24,12 @@ namespace Compi1Proyecto1
         Cerradura cerradura;
         Automata AFN;
         Automata AFD;
-        string nombre;
+        XMLFile mLFile;
         public Estructura(List<Nodo> ers)
         {
             this.ERs = ers;
             this.cerradura = new Cerradura();
+            this.mLFile = new XMLFile();
         }
 
         public void estructurar()
@@ -78,7 +79,7 @@ namespace Compi1Proyecto1
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message+"LA PILA ESTABA VACIAAAAAAAA");
+                System.Windows.Forms.MessageBox.Show("Error en la expresion regular");
             }
         }
 
@@ -206,7 +207,7 @@ namespace Compi1Proyecto1
             ArrayList anteriorFin2 = afn2.getEstadosAceptacion();
 
             nuevoinicio.getTransiciones().Add(new Transicion(nuevoinicio, anteriorInicio, Form1.EPSILON));
-            Console.Write(anteriorFin[0]);
+            //Console.Write(anteriorFin[0]);
             for (int k = 0; k < anteriorFin.Count; k++)
             {
                 Estado aux =(Estado) anteriorFin[k];
@@ -234,7 +235,7 @@ namespace Compi1Proyecto1
             foreach (Estado item in this.AFN.getEstadosAceptacion())
             {
                 texto += " \"" + item.id+"\"";
-                Console.WriteLine(item.id);
+                //Console.WriteLine(item.id);
             }
 
             texto += ";" + "\n";
@@ -251,6 +252,7 @@ namespace Compi1Proyecto1
             }
             texto += "}";
             System.IO.File.WriteAllText(@"C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\"+er+"_AFN.dot",texto);
+            System.Diagnostics.Process.Start("CMD.exe", "/C dot C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\" + er + "_AFN.dot -Tpng -o C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\" + er + "_AFN.png");
         }
 
         public Automata getAfn()
@@ -377,142 +379,169 @@ namespace Compi1Proyecto1
             }
             texto += "}";
             System.IO.File.WriteAllText(@"C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\"+er+"_AFD.dot", texto);
-
+            System.Diagnostics.Process.Start("CMD.exe", "/C dot C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\" + er + "_AFD.dot -Tpng -o C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\" + er + "_AFD.png");
         }
 
         public void graficarTabla(string er)
         {
+            List<nodovertical> listavertical = new List<nodovertical>();
+            List<nodohorizontal> listahorizontal = new List<nodohorizontal>();
             string texto = "digraph tabla{ \n \trankdir=TB;\n\tnode [shape=rectangle, height=0.5, width=0.5];\n\tgraph[ nodesep = 0.5];\n";
             
-            foreach (string simbolo in this.AFD.getAlfabeto())
-            {
-                texto +="\t"+ simbolo + "[label=\"" + simbolo+ "\"];\n";
-            }
-            texto += "\troot[label=\"root\"];\n";
             foreach (Estado item in this.AFD.getEstados())
             {
-                
-                 texto += "\ty" + item.id + "[label=\"" + item.id + "\"];\n";
-                
+                nodovertical auxvertical=new nodovertical(item.id.ToString(), "y" + item.id.ToString());
+                foreach (Transicion trans in item.getTransiciones())
+                {
+                    if (trans.simbolo.Equals("\n"))
+                    {
+                        auxvertical.estados.Add(new TableTrans(trans.fin.toString(), "xy" + item.id.ToString(), "SalLin"));
+                    }
+                    else if (trans.simbolo.Equals("\t"))
+                    {
+                        auxvertical.estados.Add(new TableTrans(trans.fin.toString(), "xy" + item.id.ToString(), "Tab"));
+                    }
+                    else if (trans.simbolo.Equals("\""))
+                    {
+                        auxvertical.estados.Add(new TableTrans(trans.fin.toString(), "xy" + item.id.ToString(), "\"\\\""));
+                    }
+                    else if (trans.simbolo.Equals("'"))
+                    {
+                        auxvertical.estados.Add(new TableTrans(trans.fin.toString(), "xy" + item.id.ToString(), "\"\\\'\""));
+                    }
+                    else
+                    {
+                        auxvertical.estados.Add(new TableTrans(trans.fin.toString(), "xy" + item.id.ToString(), trans.simbolo));
+                    }
+                    //auxvertical.estados.Add(new TableTrans(trans.fin.toString(), "xy" + con.ToString(),trans.simbolo));
+                }
+                listavertical.Add(auxvertical);
             }
-            
-            texto += "\troot -> ";
-            foreach (string simbolo in this.AFD.getAlfabeto())
-            {
-                texto += simbolo + " -> ";
-            }
-            texto += "null\n";
-
-            
-            texto += "\troot -> ";
-            foreach (Estado item in this.AFD.getEstados())
-            {  
-                texto += "y" + item.id + " -> ";
-            }
-            texto += "nulll\n";
-
-            HashSet<listavertical> listavertical = new HashSet<listavertical>();
+            int con = 0;
             foreach (string item in this.AFD.getAlfabeto())
             {
-                listavertical auxte = new listavertical(item);
-                foreach (Estado estado in this.AFD.getEstados())
+                nodohorizontal auxnodo;
+                if (item.Equals("\n"))
                 {
-                    foreach (Transicion transicion in estado.getTransiciones())
-                    {
-                        if (transicion.simbolo.Equals(item))
-                            auxte.estados.Add(transicion.fin.id.ToString());
-                    }
+                    auxnodo = new nodohorizontal("SalLin", "x" + con.ToString());
                 }
-                listavertical.Add(auxte);
-            }
-            
-            HashSet<TableTrans> tableTrans = new HashSet<TableTrans>();
-            foreach (Estado item in this.AFD.getEstados())
-            {
-                TableTrans auxte = new TableTrans(item.id.ToString());
-                foreach (Transicion transicion in item.getTransiciones())
+                else if (item.Equals("\t"))
                 {
-                    auxte.x.Add(transicion.fin.id.ToString());
+                    auxnodo= new nodohorizontal("Tab", "x" + con.ToString());
                 }
-                tableTrans.Add(auxte);
-            }
-            /*int c = 0;
-            foreach (TableTrans item in tableTrans)
-            {
-                foreach (listavertical lis in listavertical)
+                else if (item.Equals("\""))
                 {
-                    texto +="\t"+lis.simbolo + " -> ";
-                    foreach (string estado2 in lis.estados)
-                    {
-                        texto += "xy" + c + estado2+" -> " ;
-                    }
-                    texto += "nullx" + item.estado1+"\n";
+                    auxnodo= new nodohorizontal("\\\"", "x" + con.ToString());
                 }
-                c++;
-            }
-            texto += "\\\\esto es un comentario\n";*/
-
-            int c = 0;
-            foreach (TableTrans item in tableTrans)
-            {
+                else if (item.Equals("'"))
+                {
+                    auxnodo= new nodohorizontal("\\'", "x" + con.ToString());
+                }
+                else
+                {
+                    auxnodo= new nodohorizontal(item, "x" + con.ToString());
+                }
                 
-                if (item.x.Count != 0)
+                foreach (nodovertical nodo in listavertical)
                 {
-                    foreach (string estado2 in item.x)
+                    foreach (TableTrans table in nodo.estados)
                     {
-                        texto +="\txy"+c+ estado2 + "[label=\""+estado2+"\"]\n";
-                    }
-                    
-                }
-                c++;
-            }
-            int x = 0;
-            foreach (TableTrans item in tableTrans)
-            {
-                
-                if (item.x.Count != 0)
-                {
-                    
-                    texto += "\ty"+x + item.estado1 + " -> ";
-                    foreach (string estado2 in item.x)
-                    {
-                         texto+= "xy"+x + estado2 + " -> ";
-                    }
-                    texto += "nully" +x+ item.estado1+ "[constraint=false];\n";
-                    
-                }
-                x++;
-            }
-
-            texto += "\t{ rank=same;root;null";
-            foreach (string item in this.AFD.getAlfabeto())
-            {
-                texto += ";" + item;
-            }
-            texto += "}\n";
-
-            int z = 0;
-            foreach (TableTrans item in tableTrans)
-            {
-                
-                texto += "\t{ rank=same;y"+z+item.estado1+";nully"+z+item.estado1;
-                if (item.x.Count != 0)
-                {
-                    foreach (string estado2 in item.x)
-                    {
-                        texto += ";xy"+z + estado2;
+                        if (item.Equals(table.trans))
+                        {
+                            table.nombre = table.nombre + con.ToString();
+                            auxnodo.estados.Add(table);
+                        }
                         
                     }
                 }
+                listahorizontal.Add(auxnodo);
+                con++;
+            }
+
+
+            foreach (nodohorizontal simbolo in listahorizontal)
+            {
+                
+                texto +="\t"+ simbolo.nombre + "[label=\"" + simbolo.lexema+ "\"];\n";
+            }
+            texto += "\troot[label=\"root\"];\n";
+            foreach (nodovertical item in listavertical)
+            {
+                
+                 texto += "\t" + item.nombre + "[label=\"" + item.estado + "\"];\n";
+                
+            }
+            
+            texto += "\troot -> ";
+            for(int i=0;i<listahorizontal.Count-1;i++)
+            {
+                texto +=listahorizontal[i].nombre + " -> ";
+            }
+            texto += listahorizontal[listahorizontal.Count-1].nombre+"\n";
+
+            
+            texto += "\troot -> ";
+            for (int i=0;i<listavertical.Count-1;i++)
+            {  
+                texto += listavertical[i].nombre+ " -> ";
+            }
+            texto += listavertical[listavertical.Count-1].nombre+"\n";
+            
+            foreach (nodovertical item in listavertical)
+            {
+                foreach (TableTrans estado in item.estados)
+                {
+                    texto+= "\t" +estado.nombre + "[label=\"" + estado.estado2 + "\"];\n";
+                }
+            }
+
+            foreach (nodovertical item in listavertical)
+            {
+                texto += "\t" + item.nombre + " -> ";
+                for (int i = 0; i < item.estados.Count-1; i++)
+                {
+                    texto += item.estados[i].nombre + " -> ";
+                }
+                texto +="\t" + item.estados[item.estados.Count - 1].nombre + "[constraint=false];\n";
+            }
+
+            foreach (nodohorizontal item in listahorizontal)
+            {
+                if (item.estados.Count > 0)
+                {
+                    texto += "\t" + item.nombre + " -> ";
+                    for (int i = 0; i < item.estados.Count - 1; i++)
+                    {
+                        texto += item.estados[i].nombre + " -> ";
+                    }
+                    texto += "\t" + item.estados[item.estados.Count - 1].nombre + ";\n";
+                }
+            }
+            
+            texto += "\t{ rank=same;root";
+            foreach (nodohorizontal item in listahorizontal)
+            {
+                texto += ";" + item.nombre;
+            }
+            texto += "}\n";
+            
+            foreach (nodovertical item in listavertical)
+            {
+                
+                texto += "\t{ rank=same;"+item.nombre;
+                foreach (TableTrans estado2 in item.estados)
+                {
+                    texto +=";" + estado2.nombre;    
+                }
                 texto += "}\n";
-                z++;
             }
             
             texto += "}";
             System.IO.File.WriteAllText(@"C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\"+er+"_tabla.dot", texto);
+            System.Diagnostics.Process.Start("CMD.exe", "/C dot C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\" + er + "_tabla.dot -Tpng -o C:\\Users\\Lissette\\source\\repos\\Compi1Proyecto1\\Compi1Proyecto1\\" + er + "_tabla.png");
         }
 
-        public bool validarLexema(string lexema)
+        public string validarLexema(string lexema,Token listatok)
         {
             Estado inicial = this.AFD.getEstadoInicial();
             ArrayList estados = this.AFD.getEstados();
@@ -540,82 +569,54 @@ namespace Compi1Proyecto1
             }
             if (aceptado)
             {
-                Console.WriteLine("La cadena fue aceptada");
-                return true;
+                mLFile.makeXMLFile(listatok, lexema);
+                return "Lexema: "+lexema + " ACEPTADO";
             }
             else
             {
-                Console.WriteLine("El lexema no es reconocido por el automata ingresado");
-                return false;
+                mLFile.XMLError(listatok, lexema);
+                return "Lexema: " + lexema + "  NO ACEPTADO";
             }
         }
     }
 
-    class listavertical
+    class nodovertical
     {
-        public string simbolo;
-        public List<string> estados;
-        public listavertical(string sim)
+        public string estado, nombre;
+        public List<TableTrans> estados;
+        public nodovertical(string sim,string nombre)
         {
-            this.simbolo = sim;
-            this.estados = new List<string>();
+            this.estado = sim;
+            this.nombre = nombre;
+            this.estados = new List<TableTrans>();
         }
+    }
+
+    class nodohorizontal
+    {
+        public string lexema, nombre;
+        public List<TableTrans> estados;
+        public nodohorizontal(string lexema,string nombre)
+        {
+            this.lexema = lexema;
+            this.nombre = nombre;
+            this.estados = new List<TableTrans>();
+        }
+
     }
 
     class TableTrans
     {
-        public string estado1, estado2;
+        public string nombre, estado2,trans;
         public List<string> x;
 
-        public TableTrans(string estado2)
+        public TableTrans(string estado2,string nombre,string tran)
         {
             this.estado2 = estado2;
+            this.nombre = nombre;
+            this.trans = tran;
             this.x = new List<string>();
         }
     }
-    /*class Or : Estructura
-    {
-        Estructura est1,est2;
-        int n1, n2, n3, n4, n5, n6;
-
-        public Or(Estructura est1,Estructura est2)
-        {
-            this.est1 = est1;
-            this.est2 = est2;
-        }
-
-        public override Object ejecutar()
-        {
-            return null;
-        }
-    }
-
-    class And : Estructura
-    {
-        Estructura est1, est2;
-        int n1, n2, n3;
-        public And(Estructura est1, Estructura est2)
-        {
-            this.est1 = est1;
-            this.est2 = est2;
-        }
-        public override object ejecutar()
-        {
-            return null;
-        }
-    }
-
-    class Kleen : Estructura
-    {
-        Estructura est1;
-        int n1, n2, n3, n4;
-        public Kleen(Estructura est1)
-        {
-            this.est1 = est1;
-        }
-        public override object ejecutar()
-        {
-            return null;
-        }
-    }*/
+    
 }

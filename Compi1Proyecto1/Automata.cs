@@ -64,8 +64,11 @@ namespace Compi1Proyecto1
             foreach (Nodo ch in regex)
             {
 
-                if (ch.operador==false)
+                if (ch.operador == false)
+                {
                     this.alfabeto.Add(ch.lexema);
+                }
+                    
             }
         }
         public void setAlfabeto(HashSet<string> alfabeto)

@@ -2,10 +2,10 @@ digraph tabla{
  	rankdir=TB;
 	node [shape=rectangle, height=0.5, width=0.5];
 	graph[ nodesep = 0.5];
-	d[label="d"];
-	c[label="c"];
-	b[label="b"];
-	a[label="a"];
+	x0[label="d"];
+	x1[label="c"];
+	x2[label="b"];
+	x3[label="a"];
 	root[label="root"];
 	y0[label="0"];
 	y1[label="1"];
@@ -16,40 +16,44 @@ digraph tabla{
 	y6[label="6"];
 	y7[label="7"];
 	y8[label="8"];
-	root -> d -> c -> b -> a -> null
-	root -> y0 -> y1 -> y2 -> y3 -> y4 -> y5 -> y6 -> y7 -> y8 -> nulll
-	xy01[label="1"]
-	xy02[label="2"]
-	xy03[label="3"]
-	xy14[label="4"]
-	xy25[label="5"]
-	xy36[label="6"]
-	xy41[label="1"]
-	xy42[label="2"]
-	xy43[label="3"]
-	xy57[label="7"]
-	xy61[label="1"]
-	xy62[label="2"]
-	xy63[label="3"]
-	xy78[label="8"]
-	xy88[label="8"]
-	y0 -> xy01 -> xy02 -> xy03 -> nully0[constraint=false];
-	y1 -> xy14 -> nully1[constraint=false];
-	y2 -> xy25 -> nully2[constraint=false];
-	y3 -> xy36 -> nully3[constraint=false];
-	y4 -> xy41 -> xy42 -> xy43 -> nully4[constraint=false];
-	y5 -> xy57 -> nully5[constraint=false];
-	y6 -> xy61 -> xy62 -> xy63 -> nully6[constraint=false];
-	y7 -> xy78 -> nully7[constraint=false];
-	y8 -> xy88 -> nully8[constraint=false];
-	{ rank=same;root;null;d;c;b;a}
-	{ rank=same;y0;nully0;xy01;xy02;xy03}
-	{ rank=same;y1;nully1;xy14}
-	{ rank=same;y2;nully2;xy25}
-	{ rank=same;y3;nully3;xy36}
-	{ rank=same;y4;nully4;xy41;xy42;xy43}
-	{ rank=same;y5;nully5;xy57}
-	{ rank=same;y6;nully6;xy61;xy62;xy63}
-	{ rank=same;y7;nully7;xy78}
-	{ rank=same;y8;nully8;xy88}
+	root -> x0 -> x1 -> x2 -> x3
+	root -> y0 -> y1 -> y2 -> y3 -> y4 -> y5 -> y6 -> y7 -> y8
+	xy01[label="1"];
+	xy02[label="2"];
+	xy03[label="3"];
+	xy10[label="4"];
+	xy21[label="5"];
+	xy32[label="6"];
+	xy41[label="1"];
+	xy42[label="2"];
+	xy43[label="3"];
+	xy50[label="7"];
+	xy61[label="1"];
+	xy62[label="2"];
+	xy63[label="3"];
+	xy70[label="8"];
+	xy80[label="8"];
+	y0 -> xy01 -> xy02 -> 	xy03[constraint=false];
+	y1 -> 	xy10[constraint=false];
+	y2 -> 	xy21[constraint=false];
+	y3 -> 	xy32[constraint=false];
+	y4 -> xy41 -> xy42 -> 	xy43[constraint=false];
+	y5 -> 	xy50[constraint=false];
+	y6 -> xy61 -> xy62 -> 	xy63[constraint=false];
+	y7 -> 	xy70[constraint=false];
+	y8 -> 	xy80[constraint=false];
+	x0 -> xy10 -> xy50 -> xy70 -> 	xy80;
+	x1 -> xy01 -> xy21 -> xy41 -> 	xy61;
+	x2 -> xy02 -> xy32 -> xy42 -> 	xy62;
+	x3 -> xy03 -> xy43 -> 	xy63;
+	{ rank=same;root;x0;x1;x2;x3}
+	{ rank=same;y0;xy01;xy02;xy03}
+	{ rank=same;y1;xy10}
+	{ rank=same;y2;xy21}
+	{ rank=same;y3;xy32}
+	{ rank=same;y4;xy41;xy42;xy43}
+	{ rank=same;y5;xy50}
+	{ rank=same;y6;xy61;xy62;xy63}
+	{ rank=same;y7;xy70}
+	{ rank=same;y8;xy80}
 }

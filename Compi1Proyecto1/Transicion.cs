@@ -55,7 +55,20 @@ namespace Compi1Proyecto1
         }
         public String DOT_String()
         {
-            return ("\""+this.inicio.id + "\" -> \"" + this.fin.id + "\" [label=\"" + this.simbolo + "\"];");
+            if (this.simbolo.Equals("\n"))
+            {
+                return ("\"" + this.inicio.id + "\" -> \"" + this.fin.id + "\" [label=\"SaltoLinea\"];");
+            }else if (this.simbolo.Equals("\t"))
+            {
+                return ("\"" + this.inicio.id + "\" -> \"" + this.fin.id + "\" [label=\"tabulacion\"];");
+            }else if (this.simbolo.Equals("\'"))
+            {
+                return ("\"" + this.inicio.id + "\" -> \"" + this.fin.id + "\" [label=\"\\\'\"];");
+            }else if (this.simbolo.Equals("\""))
+            {
+                return ("\"" + this.inicio.id + "\" -> \"" + this.fin.id + "\" [label=\"\\\"\"];");
+            }else
+                return ("\""+this.inicio.id + "\" -> \"" + this.fin.id + "\" [label=\"" + this.simbolo + "\"];");
         }
 
         public string DOT_Tabla()
