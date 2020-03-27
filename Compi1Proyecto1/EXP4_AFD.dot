@@ -1,0 +1,31 @@
+digraph AFD {
+	rankdir=LR;
+	node [shape=doublecircle, style = filled,color = mediumseagreen]; "11";
+	node [shape=circle];
+	node [color=midnightblue,fontcolor=white];
+	edge [color=red];
+	secret_node [style=invis];
+	secret_node -> "0" [label="inicio"];
+	"0" -> "1" [label="{conjnum}"];
+	"0" -> "2" [label="_"];
+	"0" -> "3" [label="{abecedario}"];
+	"1" -> "4" [label="{conjnum}"];
+	"1" -> "5" [label=">"];
+	"2" -> "1" [label="{conjnum}"];
+	"2" -> "2" [label="_"];
+	"2" -> "3" [label="{abecedario}"];
+	"3" -> "1" [label="{conjnum}"];
+	"3" -> "2" [label="_"];
+	"3" -> "3" [label="{abecedario}"];
+	"4" -> "4" [label="{conjnum}"];
+	"4" -> "5" [label=">"];
+	"5" -> "6" [label="{conjnum}"];
+	"6" -> "7" [label=" "];
+	"6" -> "8" [label="{conjnum}"];
+	"7" -> "9" [label="FALSE"];
+	"7" -> "10" [label=":::TRUE: ]"];
+	"8" -> "7" [label=" "];
+	"8" -> "8" [label="{conjnum}"];
+	"9" -> "11" [label="."];
+	"10" -> "11" [label="."];
+}

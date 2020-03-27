@@ -179,11 +179,11 @@ namespace Compi1Proyecto1
                 }
             }
             
-            /*foreach (LexemaEntrada item in lexemaEntrada)
+            foreach (LexemaEntrada item in lexemaEntrada)
             {
                 Console.Write(item.nombre.lexema+": ");
                 Console.WriteLine(item.entrada);
-            }*/
+            }
         }
 
         public ArrayList maketreeValidacion()
@@ -231,17 +231,21 @@ namespace Compi1Proyecto1
                     {
                         if (item.nombre.lexema.Equals(lex.nombre.lexema))
                         {
-                            mensaje+=estru.validarLexema(lex.entrada,lex.nombre)+"\n\n";//Solo falta probar y afinar detalles
+                        Console.WriteLine("{0} {1}", item.nombre.lexema, lex.nombre.lexema);
+                            mensaje+= estru.validarLexema(lex.entrada,lex.nombre)+"\n\n";//Solo falta probar y afinar detalles
+                            //Console.WriteLine(mensaje);
                         }
                     }
-                //return rutas;
+                    
+                    //return rutas;
                 }
                 catch (Exception e)
                 {
                     System.Windows.Forms.MessageBox.Show("Expresion regular o conjunto incorrecto");
                     return null;
                 }
-                paths[3] = mensaje;
+                paths[3] += mensaje;
+                Console.WriteLine(mensaje);
                 rutas.Add(paths);
             }
             

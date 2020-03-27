@@ -1,0 +1,82 @@
+digraph tabla{ 
+ 	rankdir=TB;
+	node [shape=rectangle, height=0.5, width=0.5];
+	graph[ nodesep = 0.5];
+	x0[label="."];
+	x1[label="FALSE"];
+	x2[label="TRUE"];
+	x3[label="es "];
+	x4[label="{conjnum}"];
+	x5[label=">"];
+	x6[label="_"];
+	x7[label="{abecedario}"];
+	root[label="root"];
+	y0[label="0"];
+	y1[label="1"];
+	y2[label="2"];
+	y3[label="3"];
+	y4[label="4"];
+	y5[label="5"];
+	y6[label="6"];
+	y7[label="7"];
+	y8[label="8"];
+	y9[label="9"];
+	y10[label="10"];
+	y11[label="11"];
+	root -> x0 -> x1 -> x2 -> x3 -> x4 -> x5 -> x6 -> x7
+	root -> y0 -> y1 -> y2 -> y3 -> y4 -> y5 -> y6 -> y7 -> y8 -> y9 -> y10 -> y11
+	xy04[label="1"];
+	xy06[label="2"];
+	xy07[label="3"];
+	xy14[label="4"];
+	xy15[label="5"];
+	xy24[label="1"];
+	xy26[label="2"];
+	xy27[label="3"];
+	xy34[label="1"];
+	xy36[label="2"];
+	xy37[label="3"];
+	xy44[label="4"];
+	xy45[label="5"];
+	xy54[label="6"];
+	xy63[label="7"];
+	xy64[label="8"];
+	xy71[label="9"];
+	xy72[label="10"];
+	xy83[label="7"];
+	xy84[label="8"];
+	xy90[label="11"];
+	xy100[label="11"];
+	y0 -> xy04 -> xy06 -> 	xy07[constraint=false];
+	y1 -> xy14 -> 	xy15[constraint=false];
+	y2 -> xy24 -> xy26 -> 	xy27[constraint=false];
+	y3 -> xy34 -> xy36 -> 	xy37[constraint=false];
+	y4 -> xy44 -> 	xy45[constraint=false];
+	y5 -> 	xy54[constraint=false];
+	y6 -> xy63 -> 	xy64[constraint=false];
+	y7 -> xy71 -> 	xy72[constraint=false];
+	y8 -> xy83 -> 	xy84[constraint=false];
+	y9 -> 	xy90[constraint=false];
+	y10 -> 	xy100[constraint=false];
+	y11 -> 	x0 -> xy90 -> 	xy100;
+	x1 -> 	xy71;
+	x2 -> 	xy72;
+	x3 -> xy63 -> 	xy83;
+	x4 -> xy04 -> xy14 -> xy24 -> xy34 -> xy44 -> xy54 -> xy64 -> 	xy84;
+	x5 -> xy15 -> 	xy45;
+	x6 -> xy06 -> xy26 -> 	xy36;
+	x7 -> xy07 -> xy27 -> 	xy37;
+	{ rank=same;root;x0;x1;x2;x3;x4;x5;x6;x7}
+	{ rank=same;y0;xy04;xy06;xy07}
+	{ rank=same;y1;xy14;xy15}
+	{ rank=same;y2;xy24;xy26;xy27}
+	{ rank=same;y3;xy34;xy36;xy37}
+	{ rank=same;y4;xy44;xy45}
+	{ rank=same;y5;xy54}
+	{ rank=same;y6;xy63;xy64}
+	{ rank=same;y7;xy71;xy72}
+	{ rank=same;y8;xy83;xy84}
+	{ rank=same;y9;xy90}
+	{ rank=same;y10;xy100}
+	{ rank=same;y11}
+}

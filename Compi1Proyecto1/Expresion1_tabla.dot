@@ -1,0 +1,74 @@
+digraph tabla{ 
+ 	rankdir=TB;
+	node [shape=rectangle, height=0.5, width=0.5];
+	graph[ nodesep = 0.5];
+	x0[label="_"];
+	x1[label="{abecedario}"];
+	x2[label="{otrasLetras}"];
+	x3[label="{vocales}"];
+	x4[label="El "];
+	x5[label="Los "];
+	root[label="root"];
+	y0[label="0"];
+	y1[label="1"];
+	y2[label="2"];
+	y3[label="3"];
+	y4[label="4"];
+	y5[label="5"];
+	y6[label="6"];
+	y7[label="7"];
+	y8[label="8"];
+	root -> x0 -> x1 -> x2 -> x3 -> x4 -> x5
+	root -> y0 -> y1 -> y2 -> y3 -> y4 -> y5 -> y6 -> y7 -> y8
+	xy04[label="1"];
+	xy05[label="2"];
+	xy12[label="3"];
+	xy13[label="4"];
+	xy22[label="3"];
+	xy23[label="4"];
+	xy30[label="5"];
+	xy31[label="6"];
+	xy32[label="7"];
+	xy33[label="8"];
+	xy40[label="5"];
+	xy41[label="6"];
+	xy42[label="7"];
+	xy43[label="8"];
+	xy50[label="5"];
+	xy51[label="6"];
+	xy60[label="5"];
+	xy61[label="6"];
+	xy70[label="5"];
+	xy71[label="6"];
+	xy72[label="7"];
+	xy73[label="8"];
+	xy80[label="5"];
+	xy81[label="6"];
+	xy82[label="7"];
+	xy83[label="8"];
+	y0 -> xy04 -> 	xy05[constraint=false];
+	y1 -> xy12 -> 	xy13[constraint=false];
+	y2 -> xy22 -> 	xy23[constraint=false];
+	y3 -> xy30 -> xy31 -> xy32 -> 	xy33[constraint=false];
+	y4 -> xy40 -> xy41 -> xy42 -> 	xy43[constraint=false];
+	y5 -> xy50 -> 	xy51[constraint=false];
+	y6 -> xy60 -> 	xy61[constraint=false];
+	y7 -> xy70 -> xy71 -> xy72 -> 	xy73[constraint=false];
+	y8 -> xy80 -> xy81 -> xy82 -> 	xy83[constraint=false];
+	x0 -> xy30 -> xy40 -> xy50 -> xy60 -> xy70 -> 	xy80;
+	x1 -> xy31 -> xy41 -> xy51 -> xy61 -> xy71 -> 	xy81;
+	x2 -> xy12 -> xy22 -> xy32 -> xy42 -> xy72 -> 	xy82;
+	x3 -> xy13 -> xy23 -> xy33 -> xy43 -> xy73 -> 	xy83;
+	x4 -> 	xy04;
+	x5 -> 	xy05;
+	{ rank=same;root;x0;x1;x2;x3;x4;x5}
+	{ rank=same;y0;xy04;xy05}
+	{ rank=same;y1;xy12;xy13}
+	{ rank=same;y2;xy22;xy23}
+	{ rank=same;y3;xy30;xy31;xy32;xy33}
+	{ rank=same;y4;xy40;xy41;xy42;xy43}
+	{ rank=same;y5;xy50;xy51}
+	{ rank=same;y6;xy60;xy61}
+	{ rank=same;y7;xy70;xy71;xy72;xy73}
+	{ rank=same;y8;xy80;xy81;xy82;xy83}
+}

@@ -52,7 +52,6 @@
             this.tablain = new System.Windows.Forms.PictureBox();
             this.btnSgIn = new System.Windows.Forms.Button();
             this.btnAnIn = new System.Windows.Forms.Button();
-            this.consolain = new System.Windows.Forms.TextBox();
             this.btnAnain = new System.Windows.Forms.Button();
             this.inputin = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -65,7 +64,6 @@
             this.tablaav = new System.Windows.Forms.PictureBox();
             this.btnSgav = new System.Windows.Forms.Button();
             this.btnAnav = new System.Windows.Forms.Button();
-            this.consolaav = new System.Windows.Forms.TextBox();
             this.btnAnaav = new System.Windows.Forms.Button();
             this.inputav = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -74,6 +72,8 @@
             this.guardarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.consolain = new System.Windows.Forms.RichTextBox();
+            this.consolaav = new System.Windows.Forms.RichTextBox();
             this.mainconte.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabcontainer.SuspendLayout();
@@ -249,10 +249,10 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.consolain);
             this.tabPage2.Controls.Add(this.setCole);
             this.tabPage2.Controls.Add(this.btnSgIn);
             this.tabPage2.Controls.Add(this.btnAnIn);
-            this.tabPage2.Controls.Add(this.consolain);
             this.tabPage2.Controls.Add(this.btnAnain);
             this.tabPage2.Controls.Add(this.inputin);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -353,14 +353,6 @@
             this.btnAnIn.UseVisualStyleBackColor = true;
             this.btnAnIn.Click += new System.EventHandler(this.btnAnIn_Click);
             // 
-            // consolain
-            // 
-            this.consolain.Location = new System.Drawing.Point(7, 328);
-            this.consolain.Multiline = true;
-            this.consolain.Name = "consolain";
-            this.consolain.Size = new System.Drawing.Size(377, 80);
-            this.consolain.TabIndex = 4;
-            // 
             // btnAnain
             // 
             this.btnAnain.Location = new System.Drawing.Point(7, 299);
@@ -381,10 +373,10 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.consolaav);
             this.tabPage3.Controls.Add(this.tabControl4);
             this.tabPage3.Controls.Add(this.btnSgav);
             this.tabPage3.Controls.Add(this.btnAnav);
-            this.tabPage3.Controls.Add(this.consolaav);
             this.tabPage3.Controls.Add(this.btnAnaav);
             this.tabPage3.Controls.Add(this.inputav);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
@@ -484,14 +476,6 @@
             this.btnAnav.UseVisualStyleBackColor = true;
             this.btnAnav.Click += new System.EventHandler(this.btnAnav_Click);
             // 
-            // consolaav
-            // 
-            this.consolaav.Location = new System.Drawing.Point(4, 324);
-            this.consolaav.Multiline = true;
-            this.consolaav.Name = "consolaav";
-            this.consolaav.Size = new System.Drawing.Size(377, 80);
-            this.consolaav.TabIndex = 3;
-            // 
             // btnAnaav
             // 
             this.btnAnaav.Location = new System.Drawing.Point(4, 295);
@@ -532,20 +516,36 @@
             // abrirToolStripMenuItem
             // 
             this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
-            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.abrirToolStripMenuItem.Text = "Abrir";
             this.abrirToolStripMenuItem.Click += new System.EventHandler(this.abrirToolStripMenuItem_Click);
             // 
             // guardarToolStripMenuItem
             // 
             this.guardarToolStripMenuItem.Name = "guardarToolStripMenuItem";
-            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.guardarToolStripMenuItem.Text = "Guardar";
             this.guardarToolStripMenuItem.Click += new System.EventHandler(this.guardarToolStripMenuItem_Click);
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // consolain
+            // 
+            this.consolain.Location = new System.Drawing.Point(11, 329);
+            this.consolain.Name = "consolain";
+            this.consolain.Size = new System.Drawing.Size(373, 159);
+            this.consolain.TabIndex = 12;
+            this.consolain.Text = "";
+            // 
+            // consolaav
+            // 
+            this.consolaav.Location = new System.Drawing.Point(11, 325);
+            this.consolaav.Name = "consolaav";
+            this.consolaav.Size = new System.Drawing.Size(370, 170);
+            this.consolaav.TabIndex = 12;
+            this.consolaav.Text = "";
             // 
             // Form1
             // 
@@ -603,7 +603,6 @@
         private System.Windows.Forms.ToolStripMenuItem abrirToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem guardarToolStripMenuItem;
         private System.Windows.Forms.Button BtnCargar1;
-        private System.Windows.Forms.TextBox consolaav;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button btSgBa;
         private System.Windows.Forms.Button btnAnBa;
@@ -611,7 +610,6 @@
         private System.Windows.Forms.PictureBox AFNba;
         private System.Windows.Forms.Button btnSgIn;
         private System.Windows.Forms.Button btnAnIn;
-        private System.Windows.Forms.TextBox consolain;
         private System.Windows.Forms.Button btnAnain;
         private System.Windows.Forms.TextBox inputin;
         private System.Windows.Forms.TabPage tabPage3;
@@ -640,6 +638,8 @@
         private System.Windows.Forms.PictureBox tablaav;
         private System.Windows.Forms.RichTextBox consolaBa;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.RichTextBox consolain;
+        private System.Windows.Forms.RichTextBox consolaav;
     }
 }
 

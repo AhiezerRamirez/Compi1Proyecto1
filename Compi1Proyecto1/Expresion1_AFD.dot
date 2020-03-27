@@ -1,0 +1,35 @@
+digraph AFD {
+	rankdir=LR;
+	node [shape=doublecircle, style = filled,color = mediumseagreen]; "3" "4" "5" "6" "7" "8";
+	node [shape=circle];
+	node [color=midnightblue,fontcolor=white];
+	edge [color=red];
+	secret_node [style=invis];
+	secret_node -> "0" [label="inicio"];
+	"0" -> "1" [label="El "];
+	"0" -> "2" [label="Los "];
+	"1" -> "3" [label="{otrasLetras}"];
+	"1" -> "4" [label="{vocales}"];
+	"2" -> "3" [label="{otrasLetras}"];
+	"2" -> "4" [label="{vocales}"];
+	"3" -> "5" [label="_"];
+	"3" -> "6" [label="{abecedario}"];
+	"3" -> "7" [label="{otrasLetras}"];
+	"3" -> "8" [label="{vocales}"];
+	"4" -> "5" [label="_"];
+	"4" -> "6" [label="{abecedario}"];
+	"4" -> "7" [label="{otrasLetras}"];
+	"4" -> "8" [label="{vocales}"];
+	"5" -> "5" [label="_"];
+	"5" -> "6" [label="{abecedario}"];
+	"6" -> "5" [label="_"];
+	"6" -> "6" [label="{abecedario}"];
+	"7" -> "5" [label="_"];
+	"7" -> "6" [label="{abecedario}"];
+	"7" -> "7" [label="{otrasLetras}"];
+	"7" -> "8" [label="{vocales}"];
+	"8" -> "5" [label="_"];
+	"8" -> "6" [label="{abecedario}"];
+	"8" -> "7" [label="{otrasLetras}"];
+	"8" -> "8" [label="{vocales}"];
+}

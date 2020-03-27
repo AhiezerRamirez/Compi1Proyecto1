@@ -1,0 +1,120 @@
+digraph tabla{ 
+ 	rankdir=TB;
+	node [shape=rectangle, height=0.5, width=0.5];
+	graph[ nodesep = 0.5];
+	x0[label="{operadores}"];
+	x1[label="{digitos}"];
+	x2[label="{relacionales}"];
+	x3[label="Epsion"];
+	x4[label="TEXTO"];
+	x5[label=" "];
+	x6[label="{minusculas}"];
+	x7[label="{simbolos}"];
+	root[label="root"];
+	y0[label="0"];
+	y1[label="1"];
+	y2[label="2"];
+	y3[label="3"];
+	y4[label="4"];
+	y5[label="5"];
+	y6[label="6"];
+	y7[label="7"];
+	y8[label="8"];
+	y9[label="9"];
+	y10[label="10"];
+	y11[label="11"];
+	y12[label="12"];
+	y13[label="13"];
+	y14[label="14"];
+	y15[label="15"];
+	root -> x0 -> x1 -> x2 -> x3 -> x4 -> x5 -> x6 -> x7
+	root -> y0 -> y1 -> y2 -> y3 -> y4 -> y5 -> y6 -> y7 -> y8 -> y9 -> y10 -> y11 -> y12 -> y13 -> y14 -> y15
+	xy02[label="1"];
+	xy03[label="2"];
+	xy07[label="3"];
+	xy10[label="4"];
+	xy11[label="5"];
+	xy12[label="1"];
+	xy13[label="6"];
+	xy17[label="3"];
+	xy22[label="1"];
+	xy23[label="2"];
+	xy27[label="3"];
+	xy33[label="7"];
+	xy36[label="8"];
+	xy40[label="4"];
+	xy42[label="1"];
+	xy43[label="9"];
+	xy47[label="3"];
+	xy52[label="1"];
+	xy53[label="10"];
+	xy57[label="3"];
+	xy60[label="4"];
+	xy61[label="5"];
+	xy62[label="1"];
+	xy63[label="11"];
+	xy67[label="3"];
+	xy76[label="8"];
+	xy83[label="12"];
+	xy85[label="13"];
+	xy90[label="4"];
+	xy92[label="1"];
+	xy93[label="10"];
+	xy97[label="3"];
+	xy102[label="1"];
+	xy103[label="2"];
+	xy107[label="3"];
+	xy110[label="4"];
+	xy111[label="5"];
+	xy112[label="1"];
+	xy113[label="9"];
+	xy117[label="3"];
+	xy125[label="13"];
+	xy133[label="14"];
+	xy134[label="15"];
+	xy144[label="15"];
+	xy152[label="1"];
+	xy153[label="2"];
+	xy157[label="3"];
+	y0 -> xy02 -> xy03 -> 	xy07[constraint=false];
+	y1 -> xy10 -> xy11 -> xy12 -> xy13 -> 	xy17[constraint=false];
+	y2 -> xy22 -> xy23 -> 	xy27[constraint=false];
+	y3 -> xy33 -> 	xy36[constraint=false];
+	y4 -> xy40 -> xy42 -> xy43 -> 	xy47[constraint=false];
+	y5 -> xy52 -> xy53 -> 	xy57[constraint=false];
+	y6 -> xy60 -> xy61 -> xy62 -> xy63 -> 	xy67[constraint=false];
+	y7 -> 	xy76[constraint=false];
+	y8 -> xy83 -> 	xy85[constraint=false];
+	y9 -> xy90 -> xy92 -> xy93 -> 	xy97[constraint=false];
+	y10 -> xy102 -> xy103 -> 	xy107[constraint=false];
+	y11 -> xy110 -> xy111 -> xy112 -> xy113 -> 	xy117[constraint=false];
+	y12 -> 	xy125[constraint=false];
+	y13 -> xy133 -> 	xy134[constraint=false];
+	y14 -> 	xy144[constraint=false];
+	y15 -> xy152 -> xy153 -> 	xy157[constraint=false];
+	x0 -> xy10 -> xy40 -> xy60 -> xy90 -> 	xy110;
+	x1 -> xy11 -> xy61 -> 	xy111;
+	x2 -> xy02 -> xy12 -> xy22 -> xy42 -> xy52 -> xy62 -> xy92 -> xy102 -> xy112 -> 	xy152;
+	x3 -> xy03 -> xy13 -> xy23 -> xy33 -> xy43 -> xy53 -> xy63 -> xy83 -> xy93 -> xy103 -> xy113 -> xy133 -> 	xy153;
+	x4 -> xy134 -> 	xy144;
+	x5 -> xy85 -> 	xy125;
+	x6 -> xy36 -> 	xy76;
+	x7 -> xy07 -> xy17 -> xy27 -> xy47 -> xy57 -> xy67 -> xy97 -> xy107 -> xy117 -> 	xy157;
+	{ rank=same;root;x0;x1;x2;x3;x4;x5;x6;x7}
+	{ rank=same;y0;xy02;xy03;xy07}
+	{ rank=same;y1;xy10;xy11;xy12;xy13;xy17}
+	{ rank=same;y2;xy22;xy23;xy27}
+	{ rank=same;y3;xy33;xy36}
+	{ rank=same;y4;xy40;xy42;xy43;xy47}
+	{ rank=same;y5;xy52;xy53;xy57}
+	{ rank=same;y6;xy60;xy61;xy62;xy63;xy67}
+	{ rank=same;y7;xy76}
+	{ rank=same;y8;xy83;xy85}
+	{ rank=same;y9;xy90;xy92;xy93;xy97}
+	{ rank=same;y10;xy102;xy103;xy107}
+	{ rank=same;y11;xy110;xy111;xy112;xy113;xy117}
+	{ rank=same;y12;xy125}
+	{ rank=same;y13;xy133;xy134}
+	{ rank=same;y14;xy144}
+	{ rank=same;y15;xy152;xy153;xy157}
+}

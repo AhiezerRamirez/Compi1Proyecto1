@@ -51,7 +51,12 @@ namespace Compi1Proyecto1
                     btnAnBa.Enabled = true;
                     btSgBa.Enabled = true;
                 }
-                consolaBa.Text = auxrutas[3]+auxrutas2[3];
+                if (rutas.Count > 0)
+                {
+                    string[] auxrutas3 = (string[])rutas[rutas.Count - 1];
+                    consolaBa.Text += auxrutas3[3];
+                    Console.WriteLine(auxrutas3[3]);
+                }
             }
             /*string[] exp = { "_", "digito", "|", "letra", "|", "*", "letra", "." };
             //string[] exp = { ".",".",".","*", "|", ".","c" ,"d", ".", "a", "b", "b", "c", "+", "d"};
@@ -138,13 +143,18 @@ namespace Compi1Proyecto1
                     btnAnaav.Enabled = true;
                     btnSgav.Enabled = true;
                 }
-                consolaav.Text = auxrutas[3];
+                if (rutas2.Count > 0)
+                {
+                    string[] auxrutas3 = (string[])rutas2[rutas2.Count - 1];
+                    consolaav.Text += auxrutas3[3];
+                    Console.WriteLine(auxrutas3[3]);
+                }
             }
         }
         //butón sigueiente para los avanzados
         private void btnSgav_Click(object sender, EventArgs e)
         {
-            if (contador2 > 0 && contador2 <= rutas1.Count - 1)
+            if (contador2 > 0 && contador2 <= rutas2.Count - 1)
             {
                 //contador++;
                 string[] rut = (string[])rutas2[contador2];
@@ -158,7 +168,7 @@ namespace Compi1Proyecto1
             }
             else
             {
-                contador1 = rutas1.Count - 1;
+                contador2 = rutas2.Count - 1;
             }
         }
 
@@ -200,8 +210,6 @@ namespace Compi1Proyecto1
             {
                 string[] auxrutas = (string[])rutas1[0];
                 string[] auxrutas2 = (string[])rutas1[1];
-                Console.WriteLine(auxrutas[0]);
-                Console.WriteLine(auxrutas2[0]);
                 AFNin.Image = new Bitmap(auxrutas[0]);
                 AFDin.Image = new Bitmap(auxrutas[1]);
                 tablain.Image = new Bitmap(auxrutas[2]);
@@ -210,8 +218,15 @@ namespace Compi1Proyecto1
                     btnAnIn.Enabled = true;
                     btnSgIn.Enabled = true;
                 }
-                consolain.Text = auxrutas[3];
+                if (rutas1.Count > 0)
+                {
+                    string[] auxrutas3 = (string[])rutas1[rutas1.Count - 1];
+                    consolain.Text += auxrutas3[3];
+                    Console.WriteLine(auxrutas3[3]);
+                }
             }
+
+            
         }
         //Botón de siguiente para el intermedio
         private void btnSgIn_Click(object sender, EventArgs e)

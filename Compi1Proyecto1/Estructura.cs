@@ -477,7 +477,8 @@ namespace Compi1Proyecto1
             {
                 texto +=listahorizontal[i].nombre + " -> ";
             }
-            texto += listahorizontal[listahorizontal.Count-1].nombre+"\n";
+            if(listahorizontal.Count>0)
+                texto += listahorizontal[listahorizontal.Count-1].nombre+"\n";
 
             
             texto += "\troot -> ";
@@ -502,7 +503,8 @@ namespace Compi1Proyecto1
                 {
                     texto += item.estados[i].nombre + " -> ";
                 }
-                texto +="\t" + item.estados[item.estados.Count - 1].nombre + "[constraint=false];\n";
+                if (item.estados.Count > 0)
+                    texto +="\t" + item.estados[item.estados.Count - 1].nombre + "[constraint=false];\n";
             }
 
             foreach (nodohorizontal item in listahorizontal)
@@ -514,7 +516,8 @@ namespace Compi1Proyecto1
                     {
                         texto += item.estados[i].nombre + " -> ";
                     }
-                    texto += "\t" + item.estados[item.estados.Count - 1].nombre + ";\n";
+                    if(item.estados.Count>0)
+                        texto += "\t" + item.estados[item.estados.Count - 1].nombre + ";\n";
                 }
             }
             

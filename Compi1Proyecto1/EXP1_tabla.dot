@@ -1,0 +1,105 @@
+digraph tabla{ 
+ 	rankdir=TB;
+	node [shape=rectangle, height=0.5, width=0.5];
+	graph[ nodesep = 0.5];
+	x0[label="{relacionales}"];
+	x1[label=" "];
+	x2[label="{logicos}"];
+	x3[label="{mayusculas}"];
+	x4[label="{minusculas}"];
+	x5[label="{VOCALES_may}"];
+	x6[label="Epsion"];
+	x7[label="{vocales_min}"];
+	root[label="root"];
+	y0[label="0"];
+	y1[label="1"];
+	y2[label="2"];
+	y3[label="3"];
+	y4[label="4"];
+	y5[label="5"];
+	y6[label="6"];
+	y7[label="7"];
+	y8[label="8"];
+	y9[label="9"];
+	y10[label="10"];
+	y11[label="11"];
+	y12[label="12"];
+	root -> x0 -> x1 -> x2 -> x3 -> x4 -> x5 -> x6 -> x7
+	root -> y0 -> y1 -> y2 -> y3 -> y4 -> y5 -> y6 -> y7 -> y8 -> y9 -> y10 -> y11 -> y12
+	xy07[label="1"];
+	xy11[label="2"];
+	xy12[label="3"];
+	xy14[label="4"];
+	xy15[label="5"];
+	xy16[label="6"];
+	xy20[label="7"];
+	xy26[label="8"];
+	xy30[label="7"];
+	xy36[label="8"];
+	xy43[label="9"];
+	xy46[label="10"];
+	xy51[label="2"];
+	xy52[label="3"];
+	xy54[label="4"];
+	xy55[label="5"];
+	xy56[label="11"];
+	xy61[label="2"];
+	xy62[label="3"];
+	xy64[label="4"];
+	xy65[label="5"];
+	xy66[label="11"];
+	xy71[label="2"];
+	xy72[label="3"];
+	xy74[label="4"];
+	xy75[label="5"];
+	xy76[label="11"];
+	xy80[label="7"];
+	xy86[label="12"];
+	xy91[label="2"];
+	xy92[label="3"];
+	xy94[label="4"];
+	xy95[label="5"];
+	xy96[label="11"];
+	xy103[label="9"];
+	xy111[label="2"];
+	xy112[label="3"];
+	xy114[label="4"];
+	xy115[label="5"];
+	xy116[label="11"];
+	xy120[label="7"];
+	y0 -> 	xy07[constraint=false];
+	y1 -> xy11 -> xy12 -> xy14 -> xy15 -> 	xy16[constraint=false];
+	y2 -> xy20 -> 	xy26[constraint=false];
+	y3 -> xy30 -> 	xy36[constraint=false];
+	y4 -> xy43 -> 	xy46[constraint=false];
+	y5 -> xy51 -> xy52 -> xy54 -> xy55 -> 	xy56[constraint=false];
+	y6 -> xy61 -> xy62 -> xy64 -> xy65 -> 	xy66[constraint=false];
+	y7 -> xy71 -> xy72 -> xy74 -> xy75 -> 	xy76[constraint=false];
+	y8 -> xy80 -> 	xy86[constraint=false];
+	y9 -> xy91 -> xy92 -> xy94 -> xy95 -> 	xy96[constraint=false];
+	y10 -> 	xy103[constraint=false];
+	y11 -> xy111 -> xy112 -> xy114 -> xy115 -> 	xy116[constraint=false];
+	y12 -> 	xy120[constraint=false];
+	x0 -> xy20 -> xy30 -> xy80 -> 	xy120;
+	x1 -> xy11 -> xy51 -> xy61 -> xy71 -> xy91 -> 	xy111;
+	x2 -> xy12 -> xy52 -> xy62 -> xy72 -> xy92 -> 	xy112;
+	x3 -> xy43 -> 	xy103;
+	x4 -> xy14 -> xy54 -> xy64 -> xy74 -> xy94 -> 	xy114;
+	x5 -> xy15 -> xy55 -> xy65 -> xy75 -> xy95 -> 	xy115;
+	x6 -> xy16 -> xy26 -> xy36 -> xy46 -> xy56 -> xy66 -> xy76 -> xy86 -> xy96 -> 	xy116;
+	x7 -> 	xy07;
+	{ rank=same;root;x0;x1;x2;x3;x4;x5;x6;x7}
+	{ rank=same;y0;xy07}
+	{ rank=same;y1;xy11;xy12;xy14;xy15;xy16}
+	{ rank=same;y2;xy20;xy26}
+	{ rank=same;y3;xy30;xy36}
+	{ rank=same;y4;xy43;xy46}
+	{ rank=same;y5;xy51;xy52;xy54;xy55;xy56}
+	{ rank=same;y6;xy61;xy62;xy64;xy65;xy66}
+	{ rank=same;y7;xy71;xy72;xy74;xy75;xy76}
+	{ rank=same;y8;xy80;xy86}
+	{ rank=same;y9;xy91;xy92;xy94;xy95;xy96}
+	{ rank=same;y10;xy103}
+	{ rank=same;y11;xy111;xy112;xy114;xy115;xy116}
+	{ rank=same;y12;xy120}
+}

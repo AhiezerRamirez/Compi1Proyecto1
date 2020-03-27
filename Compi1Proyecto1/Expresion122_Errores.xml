@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ListaErrores>
+  <Error>
+    <Valor>Expresion1</Valor>
+    <Fila>22</Fila>
+    <Columna>101</Columna>
+  </Error>
+</ListaErrores>

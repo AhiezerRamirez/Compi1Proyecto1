@@ -1,0 +1,103 @@
+digraph tabla{ 
+ 	rankdir=TB;
+	node [shape=rectangle, height=0.5, width=0.5];
+	graph[ nodesep = 0.5];
+	x0[label="{digito}"];
+	x1[label="/"];
+	x2[label="*"];
+	x3[label="-"];
+	x4[label="+"];
+	root[label="root"];
+	y0[label="0"];
+	y1[label="1"];
+	y2[label="2"];
+	y3[label="3"];
+	y4[label="4"];
+	y5[label="5"];
+	y6[label="6"];
+	y7[label="7"];
+	y8[label="8"];
+	y9[label="9"];
+	y10[label="10"];
+	y11[label="11"];
+	y12[label="12"];
+	y13[label="13"];
+	y14[label="14"];
+	root -> x0 -> x1 -> x2 -> x3 -> x4
+	root -> y0 -> y1 -> y2 -> y3 -> y4 -> y5 -> y6 -> y7 -> y8 -> y9 -> y10 -> y11 -> y12 -> y13 -> y14
+	xy00[label="1"];
+	xy10[label="2"];
+	xy11[label="3"];
+	xy12[label="4"];
+	xy13[label="5"];
+	xy14[label="6"];
+	xy20[label="2"];
+	xy21[label="3"];
+	xy22[label="4"];
+	xy23[label="5"];
+	xy24[label="6"];
+	xy30[label="7"];
+	xy40[label="7"];
+	xy50[label="7"];
+	xy60[label="7"];
+	xy70[label="8"];
+	xy71[label="9"];
+	xy72[label="10"];
+	xy73[label="11"];
+	xy74[label="12"];
+	xy80[label="8"];
+	xy81[label="9"];
+	xy82[label="10"];
+	xy83[label="11"];
+	xy84[label="12"];
+	xy90[label="13"];
+	xy100[label="13"];
+	xy110[label="13"];
+	xy120[label="13"];
+	xy130[label="14"];
+	xy131[label="9"];
+	xy132[label="10"];
+	xy133[label="11"];
+	xy134[label="12"];
+	xy140[label="14"];
+	xy141[label="9"];
+	xy142[label="10"];
+	xy143[label="11"];
+	xy144[label="12"];
+	y0 -> 	xy00[constraint=false];
+	y1 -> xy10 -> xy11 -> xy12 -> xy13 -> 	xy14[constraint=false];
+	y2 -> xy20 -> xy21 -> xy22 -> xy23 -> 	xy24[constraint=false];
+	y3 -> 	xy30[constraint=false];
+	y4 -> 	xy40[constraint=false];
+	y5 -> 	xy50[constraint=false];
+	y6 -> 	xy60[constraint=false];
+	y7 -> xy70 -> xy71 -> xy72 -> xy73 -> 	xy74[constraint=false];
+	y8 -> xy80 -> xy81 -> xy82 -> xy83 -> 	xy84[constraint=false];
+	y9 -> 	xy90[constraint=false];
+	y10 -> 	xy100[constraint=false];
+	y11 -> 	xy110[constraint=false];
+	y12 -> 	xy120[constraint=false];
+	y13 -> xy130 -> xy131 -> xy132 -> xy133 -> 	xy134[constraint=false];
+	y14 -> xy140 -> xy141 -> xy142 -> xy143 -> 	xy144[constraint=false];
+	x0 -> xy00 -> xy10 -> xy20 -> xy30 -> xy40 -> xy50 -> xy60 -> xy70 -> xy80 -> xy90 -> xy100 -> xy110 -> xy120 -> xy130 -> 	xy140;
+	x1 -> xy11 -> xy21 -> xy71 -> xy81 -> xy131 -> 	xy141;
+	x2 -> xy12 -> xy22 -> xy72 -> xy82 -> xy132 -> 	xy142;
+	x3 -> xy13 -> xy23 -> xy73 -> xy83 -> xy133 -> 	xy143;
+	x4 -> xy14 -> xy24 -> xy74 -> xy84 -> xy134 -> 	xy144;
+	{ rank=same;root;x0;x1;x2;x3;x4}
+	{ rank=same;y0;xy00}
+	{ rank=same;y1;xy10;xy11;xy12;xy13;xy14}
+	{ rank=same;y2;xy20;xy21;xy22;xy23;xy24}
+	{ rank=same;y3;xy30}
+	{ rank=same;y4;xy40}
+	{ rank=same;y5;xy50}
+	{ rank=same;y6;xy60}
+	{ rank=same;y7;xy70;xy71;xy72;xy73;xy74}
+	{ rank=same;y8;xy80;xy81;xy82;xy83;xy84}
+	{ rank=same;y9;xy90}
+	{ rank=same;y10;xy100}
+	{ rank=same;y11;xy110}
+	{ rank=same;y12;xy120}
+	{ rank=same;y13;xy130;xy131;xy132;xy133;xy134}
+	{ rank=same;y14;xy140;xy141;xy142;xy143;xy144}
+}

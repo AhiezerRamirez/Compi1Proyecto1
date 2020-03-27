@@ -1,0 +1,33 @@
+digraph automata_finito {
+	rankdir=LR;
+	node [shape=doublecircle, style = filled,color = mediumseagreen]; "19";
+	node [shape=circle];
+	node [color=midnightblue,fontcolor=white];
+	edge [color=red];
+	secret_node [style=invis];
+	secret_node -> "0" [label="inicio"];
+	"0" -> "1" [label="{abecedario}"];
+	"1" -> "2" [label="Epsion"];
+	"2" -> "3" [label="Epsion"];
+	"2" -> "5" [label="Epsion"];
+	"3" -> "4" [label="{abecedario}"];
+	"4" -> "3" [label="Epsion"];
+	"4" -> "5" [label="Epsion"];
+	"5" -> "6" [label="Epsion"];
+	"6" -> "7" [label="{conjnum}"];
+	"7" -> "8" [label="Epsion"];
+	"8" -> "17" [label="Epsion"];
+	"8" -> "9" [label="Epsion"];
+	"9" -> "10" [label=":"];
+	"10" -> "11" [label="Epsion"];
+	"11" -> "12" [label="{abecedario}"];
+	"12" -> "13" [label="Epsion"];
+	"13" -> "14" [label="Epsion"];
+	"13" -> "16" [label="Epsion"];
+	"14" -> "15" [label="{abecedario}"];
+	"15" -> "14" [label="Epsion"];
+	"15" -> "16" [label="Epsion"];
+	"16" -> "19" [label="Epsion"];
+	"17" -> "18" [label="Epsion"];
+	"18" -> "19" [label="Epsion"];
+}
